@@ -1,6 +1,6 @@
 <?php
 
-class StudentController extends student {
+class StudentController {
 
     protected function getStudentInfo(){
         if (isset($_GET['studentInfo'])){

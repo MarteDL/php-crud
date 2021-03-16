@@ -7,7 +7,7 @@ class student extends teacher
 {
     private string $class = '';
 
-     public function __construct($lastName, $firstName, $email, $class = null) {
+     #[Pure] public function __construct($lastName, $firstName, $email, $class = null) {
          parent::__construct($lastName, $firstName, $email);
 
          if ($class !== null) {
