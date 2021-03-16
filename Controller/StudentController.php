@@ -1,12 +1,16 @@
 <?php
 
-class StudentController {
+class StudentController
+{
 
-    protected function getStudentInfo(){
-        if (isset($_GET['studentInfo'])){
-            $student = new StudentController();
-            require 'View/StudentView.php';
-        }
+    protected function getStudentInfo()
+    {
+        $connection = new DbConnect();
+        $pdo = $connection->connect();
+
+        $student = studentLoader::getStudent($_GET['id'], $pdo);
+        require '?';
     }
 
 }
+
