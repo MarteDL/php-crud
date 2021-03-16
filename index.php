@@ -5,7 +5,7 @@ ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);
 
-require "Templates/header.php";
+require "View/includes/header.php";
 session_start();
 ?>
 <h1>Aware classes</h1>
@@ -19,4 +19,4 @@ session_start();
 
 
 
-<?php require "Templates/footer.php";?>
+<?php require "View/includes/footer.php";?>

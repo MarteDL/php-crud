@@ -13,6 +13,6 @@
 <header>
     <h1>School of many</h1>
     <h2>Welcome to aware school</h2>
-    <h3>We are proud to present aware classes/h3>
+    <h3>I'm vinum veritas in aqua vitalis</h3>
 </header>
 <body>
