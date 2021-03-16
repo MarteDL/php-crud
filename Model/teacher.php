@@ -3,12 +3,14 @@
 
 class teacher
 {
-    protected string $name;
+    protected string $lastName;
+    protected string $firstName;
     protected string $email;
     private array $students;
 
-    public function __construct(string $name, string $email) {
-        $this->name = $name;
+    public function __construct(string $lastName, string $firstName, string $email) {
+        $this->lastName = $lastName;
+        $this->firstName = $firstName;
         $this->email = $email;
     }
 
@@ -31,17 +33,33 @@ class teacher
     /**
      * @return string
      */
-    public function getName(): string
+    public function getFirstName(): string
     {
-        return $this->name;
+        return $this->firstName;
     }
 
     /**
      * @param string $name
      */
-    public function setName(string $name): void
+    public function setFirstName(string $firstName): void
     {
-        $this->name = $name;
+        $this->firstName = $firstName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLastName(): string
+    {
+        return $this->lastName;
+    }
+
+    /**
+     * @param string $lastName
+     */
+    public function setLastName(string $lastName): void
+    {
+        $this->lastName = $lastName;
     }
 
 }
