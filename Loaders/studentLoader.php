@@ -16,8 +16,16 @@ class studentLoader
 
         public static function getAllStudents(PDO $pdo): array
         {
-            $handle = $pdo->query('SELECT * FROM student');
-            return $handle->fetchAll();
+            $handle = $pdo->query('SELECT firstname, lastname, email, classname FROM student');
+            $studentsArray = $handle->fetchAll();
+
+            $students = [];
+
+            foreach ($studentsArray AS $student) {
+                $students[] = new student($student['lastname'], $student['firstname'], $student['email'], $student['classname']);
+            }
+
+            return $students;
         }
 
 }
