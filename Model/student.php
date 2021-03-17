@@ -3,32 +3,32 @@
 
 use JetBrains\PhpStorm\Pure;
 
-class student extends teacher
+class student extends user
 {
-    private string $class = '';
+    private string $teacher;
 
-     #[Pure] public function  __construct($lastName, $firstName, $email, $class = null) {
-         parent::__construct($lastName, $firstName, $email);
+     #[Pure] public function  __construct($lastName, $firstName, $email, $class, $teacher = null) {
+         parent::__construct($lastName, $firstName, $email, $class);
 
-         if ($class !== null) {
-             $this->class = $class;
+         if ($teacher !== null) {
+             $this->teacher = $teacher;
          }
      }
 
     /**
      * @return string
      */
-    public function getClass(): string
+    public function getTeacher(): string
     {
-        return $this->class;
+        return $this->teacher;
     }
 
     /**
-     * @param string $class
+     * @param string $teacher
      */
-    public function setClass(string $class): void
+    public function setTeacher(string $teacher): void
     {
-        $this->class = $class;
+        $this->teacher = $teacher;
     }
 
 }
