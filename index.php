@@ -16,7 +16,6 @@ $controller = new StudentController();
 if(isset($_GET['id'])) {
     $controller->getStudentInfo($_GET['id']);
 }
-
 else {
     $controller->getAllStudentInfo();
 }

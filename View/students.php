@@ -37,13 +37,17 @@ require "includes/header.php";
 
 
             <tbody>
-            <?php foreach ($allStudents as $student): ?>
+            <?php
+            /** @var student[] $allStudents */
+            foreach ($allStudents as $student): ?>
                 <tr>
                     <td><a href="index.php?id=<?php echo $student->getId() ?>"
                            class="btn btn-primary"><?php echo $student->getFirstname(), $student->getlastname() ?>
                     </td>
-                    <td><a href="classView.php?className=<?php echo $student->getClass() ?>"></td>
+                    <td><a href="classView.php?className=<?php echo $student->getGroup()->getName() ?>"></td>
                     <td>
+                        <a href="?edit=<?php echo $student->getId() ?>" class="btn btn-primary">Edit student</a>
+
                         <form method="get" action="studentEdit.php">
                             <!-- edit button -->
                             <input type="hidden" name="edit" value="<?php echo $student->getId() ?>"/>

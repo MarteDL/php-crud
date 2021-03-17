@@ -1,9 +1,3 @@
-<?php
-ini_set('display_errors', '1');
-ini_set('display_startup_errors', '1');
-error_reporting(E_ALL);
-?>
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -53,3 +47,10 @@ error_reporting(E_ALL);
         <h2>I'm vinum veritas in aqua vitalis</h2>
     </div>
 </header>
+
+<?php if(isset($_SESSION['message'])):?>
+    <div class="alert alert-success" role="alert">
+        <?php echo $_SESSION['message']?>
+        <?php unset($_SESSION['message'])?>
+    </div>
+<?php endif;?>
