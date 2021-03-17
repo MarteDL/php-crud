@@ -3,14 +3,15 @@
 
 class studentLoader
 {
-    public static function getStudent(int $id, PDO $pdo): student
-    {
-        $handle = $pdo->prepare('SELECT s.studentID, s.firstName, s.email, s.className, s.lastName, concat(t.lastName, " ", t.firstName) teacher FROM student s LEFT JOIN teacher t on s.className = t.className WHERE studentId = :id');
-        $handle->bindValue(':id', $id);
-        $handle->execute();
+    private array $newData = [];
 
-        $studentArray = $handle->fetch(PDO::FETCH_ASSOC);
-//            return $studentArray;
+        public static function getStudent(int $id, PDO $pdo) : student
+        {
+            $handle = $pdo->prepare('SELECT s.studentID, s.firstName, s.email, s.className, s.lastName, concat(t.lastName, ' ', t.firstName) teacher FROM student s LEFT JOIN teacher t on s.className = t.className WHERE studentId = :id');
+            $handle->bindValue(':id', $id);
+            $handle->execute();
+
+            $studentArray = $handle->fetch(PDO::FETCH_ASSOC);
 
         return new student($studentArray['lastName'], $studentArray['firstName'], $studentArray['email'], $studentArray['className'], $studentArray['teacher']);
     }
