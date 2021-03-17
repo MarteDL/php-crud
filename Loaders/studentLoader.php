@@ -3,16 +3,17 @@
 
 class studentLoader
 {
-        public static function getStudent(int $id, PDO $pdo) : student
-        {
-            $handle = $pdo->prepare('SELECT s.studentID, s.firstName, s.email, s.className, s.lastName, concat(t.lastName, ' ', t.firstName) teacher FROM student s LEFT JOIN teacher t on s.className = t.className WHERE studentId = :id');
-            $handle->bindValue(':id', $id);
-            $handle->execute();
+    public static function getStudent(int $id, PDO $pdo): student
+    {
+        $handle = $pdo->prepare('SELECT s.studentID, s.firstName, s.email, s.className, s.lastName, concat(t.lastName, t.firstName) teacher FROM student s LEFT JOIN teacher t on s.className = t.className WHERE studentId = :id');
+        $handle->bindValue(':id', $id);
+        $handle->execute();
 
-            $studentArray = $handle->fetch(PDO::FETCH_ASSOC);
+        $studentArray = $handle->fetch(PDO::FETCH_ASSOC);
+//            return $studentArray;
 
-            return new student($studentArray['lastname'], $studentArray['firstname'], $studentArray['email'], $studentArray['classname'], $studentArray['teacher']);
-        }
+        return new student($studentArray['lastName'], $studentArray['firstName'], $studentArray['email'], $studentArray['className'], $studentArray['teacher']);
+    }
 
     public static function getAllStudents(PDO $pdo): array
     {
@@ -27,7 +28,7 @@ class studentLoader
     }
 
 //------------------------------------------- studentView update/delete button ------------------------------------------------
-    public function deleteStudent(int $id, PDO $pdo): void
+    public static function deleteStudent(int $id, PDO $pdo): void
     {
         $handle = $pdo->prepare('DELETE FROM student WHERE studentId = :id');
         $handle->bindValue(':id', $id);
@@ -35,15 +36,15 @@ class studentLoader
     }
 
 //updated data
-    public function saveStudent(array $newData, PDO $pdo)
+    public static function saveStudent(array $newData, PDO $pdo)
     {
         $handle = $pdo->prepare('UPDATE student SET firstname=:firstname, lastname=:lastname, email=:email, classname=:classname WHERE studentId = :id'); //add teacher parameter
         $handle->bindValue(':id', $newData['studentID']);
-        $handle->bindValue(':firstname',$newData['firstName']);
-        $handle->bindValue(':lastname',$newData['lastName']);
-        $handle->bindValue(':email',$newData['email']);
-        $handle->bindValue(':classname',$newData['className']);
-     // $handle->bindValue(':teacher',$newData['teacher']);
+        $handle->bindValue(':firstname', $newData['firstName']);
+        $handle->bindValue(':lastname', $newData['lastName']);
+        $handle->bindValue(':email', $newData['email']);
+        $handle->bindValue(':classname', $newData['className']);
+        // $handle->bindValue(':teacher',$newData['teacher']);
         $handle->execute();
     }
 

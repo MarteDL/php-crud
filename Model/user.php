@@ -13,13 +13,12 @@ class user
         $this->lastName = $lastName;
         $this->firstName = $firstName;
         $this->email = $email;
+        $this->class = $class;
 
         if ($id !== 0) {
             $this->id = $id;
         }
     }
-
-
 
 
     public function getEmail(): string
