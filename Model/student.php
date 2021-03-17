@@ -7,14 +7,15 @@ class student extends user
 {
     private string $teacher;
 
-     #[Pure] public function  __construct($lastName, $firstName, $email, $class, $id, $teacher = null) {
-         parent::__construct($lastName, $firstName, $email, $class, $id);
+     #[Pure] public function  __construct(string $lastName, string $firstName, string $email, group $group, int $id = 0, $teacher = null) {
+         parent::__construct($lastName, $firstName, $email, $group, $id);
 
          if ($teacher !== null) {
              $this->teacher = $teacher;
          }
      }
 
+     //@todo return Teacher object
     public function getTeacher(): string
     {
         return $this->teacher;

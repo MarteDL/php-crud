@@ -3,32 +3,26 @@
 
 class user
 {
-    protected int $id;
-    protected string $lastName;
-    protected string $firstName;
-    protected string $email;
-    protected string $class;
+    private int $id;
+    private string $lastName;
+    private string $firstName;
+    private string $email;
+    private group $group;
 
-    public function __construct(string $lastName, string $firstName, string $email, string $class, int $id = 0) {
+    public function __construct(string $lastName, string $firstName, string $email, group $group, int $id = 0) {
         $this->lastName = $lastName;
         $this->firstName = $firstName;
         $this->email = $email;
-        $this->class = $class;
+        $this->group = $group;
 
         if ($id !== 0) {
             $this->id = $id;
         }
     }
 
-
-    public function getId(): int
+    public function getId():? int
     {
         return $this->id;
-    }
-
-    public function setId(int $id): void
-    {
-        $this->id = $id;
     }
 
     public function getEmail(): string
@@ -65,16 +59,14 @@ class user
         $this->lastName = $lastName;
     }
 
-
-    public function getClass(): string
+    public function getGroup(): group
     {
-        return $this->class;
+        return $this->group;
     }
 
-
-    public function setClass(string $class): void
+    public function setGroup(group $group): void
     {
-        $this->class = $class;
+        $this->group = $group;
     }
 
 }

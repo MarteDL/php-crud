@@ -1,18 +1,15 @@
 <?php
 declare(strict_types=1);
 
-
 ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);
 
-
 require 'includes/header.php';
-
-
 ?>
 
 <main>
+
 
 <!--check if data were SAVEd and alert succeeded changes -->
 <?php if(isset($_POST ['save'])):?>
@@ -50,7 +47,7 @@ header( "refresh:3;url=../../index.php" );
             <td><?php echo $student->getFirstname() ?></td>
             <td><?php echo $student->getLastname()?></td>
             <td><?php echo $student->getEmail() ?></td>
-            <td><a href="classView.php?className=<?php echo $student->getClass() ?>"><?php echo $student->getClass() ?></a></td>
+            <td><a href="classView.php?className=<?php echo $student->getGroup()->getName() ?>"><?php echo $student->getGroup() ?></a></td>
             <td><a href="teacherView.php?teacherID=<?php echo $student->getTeacher() ?>"><?php echo $student->getTeacher() ?></a></td>
             <td>
                 <form method="get" action="studentEdit.php">
