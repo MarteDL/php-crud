@@ -8,7 +8,7 @@ class DbConnect
     private string $pwd = "8SIWhAfUtb";
     private string $dbName = "sql11399129";
 
-    protected function connect()
+    public function connect() : PDO
     {
         $dsn = 'mysql:host=' . $this->host . ';dbname=' . $this->dbName;
         $pdo = new PDO($dsn, $this->user, $this->pwd);
