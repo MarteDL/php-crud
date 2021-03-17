@@ -2,6 +2,7 @@
 
 
 use JetBrains\PhpStorm\Pure;
+require "user.php";
 
 class teacher extends user
 {
