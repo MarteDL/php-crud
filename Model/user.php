@@ -13,6 +13,7 @@ class user
         $this->lastName = $lastName;
         $this->firstName = $firstName;
         $this->email = $email;
+        $this->class = $class;
 
         if ($id !== 0) {
             $this->id = $id;
@@ -20,7 +21,15 @@ class user
     }
 
 
+    public function getId(): int
+    {
+        return $this->id;
+    }
 
+    public function setId(int $id): void
+    {
+        $this->id = $id;
+    }
 
     public function getEmail(): string
     {
