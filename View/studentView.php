@@ -54,12 +54,12 @@ header( "refresh:3;url=../../index.php" );
             <td>
                 <form method="get" action="studentEdit.php">
                     <!-- edit button -->
-                    <input type="hidden" name="id" value="<?php echo $student->getStudentID()?>" />
+                    <input type="hidden" name="id" value="<?php echo $student->getID()?>" />
                     <input type="submit"  value="Edit" class="btn btn-primary"/>
                 </form>
                 <form method="post">
                     <!-- delete button -->
-                    <input type="hidden" name="id" value="<?php echo $student->getStudentID()?>" />
+                    <input type="hidden" name="id" value="<?php echo $student->getID()?>" />
                     <input type="submit" name="delete" value="Delete" class="btn btn-danger"/>
                 </form>
             </td>
