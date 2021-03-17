@@ -14,18 +14,37 @@ class studentLoader
             return new student($studentArray['lastname'], $studentArray['firstname'], $studentArray['email'], $studentArray['classname']);
         }
 
-        public static function getAllStudents(PDO $pdo): array
-        {
-            $handle = $pdo->query('SELECT firstname, lastname, email, classname FROM student');
-            $studentsArray = $handle->fetchAll();
+    public static function getAllStudents(PDO $pdo): array
+    {
+        $handle = $pdo->query('SELECT firstname, lastname, email, classname FROM student');
+        $studentsArray = $handle->fetchAll();
 
-            $students = [];
-
-            foreach ($studentsArray AS $student) {
-                $students[] = new student($student['lastname'], $student['firstname'], $student['email'], $student['classname']);
-            }
-
-            return $students;
+        $students = [];
+        foreach ($studentsArray as $student) {
+            $students[] = new student($student['lastname'], $student['firstname'], $student['email'], $student['classname']);
         }
+        return $students;
+    }
+
+//------------------------------------------- studentView update/delete button ------------------------------------------------
+    public function deleteStudent(int $id, PDO $pdo): void
+    {
+        $handle = $pdo->prepare('DELETE FROM student WHERE studentId = :id');
+        $handle->bindValue(':id', $id);
+        $handle->execute();
+    }
+
+//updated data
+    public function saveStudent(array $newData, PDO $pdo)
+    {
+        $handle = $pdo->prepare('UPDATE student SET firstname=:firstname, lastname=:lastname, email=:email, classname=:classname WHERE studentId = :id'); //add teacher parameter
+        $handle->bindValue(':id', $newData['studentID']);
+        $handle->bindValue(':firstname',$newData['firstName']);
+        $handle->bindValue(':lastname',$newData['lastName']);
+        $handle->bindValue(':email',$newData['email']);
+        $handle->bindValue(':classname',$newData['className']);
+     // $handle->bindValue(':teacher',$newData['teacher']);
+        $handle->execute();
+    }
 
 }
