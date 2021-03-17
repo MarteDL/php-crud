@@ -17,4 +17,3 @@ $controller->getStudentInfo();
 if(isset($_GET['id'])) {
     $controller->editStudent();
 }
-
