@@ -8,7 +8,6 @@ class user
     protected string $firstName;
     protected string $email;
     protected string $class;
-    private array $students;
 
     public function __construct(string $lastName, string $firstName, string $email, string $class, int $id = 0) {
         $this->lastName = $lastName;
@@ -19,6 +18,8 @@ class user
             $this->id = $id;
         }
     }
+
+
 
 
     public function getEmail(): string
