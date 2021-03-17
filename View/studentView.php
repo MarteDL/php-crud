@@ -8,6 +8,8 @@ ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);
 
+$connection = new DbConnect();
+$pdo = $connection->connect();
 $student = studentLoader::getStudent($_GET['id'],$pdo);
 ?>
 
