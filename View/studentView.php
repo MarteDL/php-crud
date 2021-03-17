@@ -65,7 +65,5 @@ header( "refresh:3;url=../../index.php" );
     </table>
 </section>
 <?php endif;?>
-
 </main>
-
 <?php require 'includes/footer.php'; ?>

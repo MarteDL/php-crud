@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
-
 require "Loaders/studentLoader.php";
 require "Controller/groupController.php";
+//require "Controller/StudentController.php";
 
 ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);
-
+//$student = StudentController::getStudentInfo();
 $student = studentLoader::getStudent($_GET['id'],$pdo);
 ?>
 <!------------------- edit form ---------------------->
