@@ -12,8 +12,11 @@ require "Model/student.php";
 require "Controller/StudentController.php";
 
 $controller = new StudentController();
-$controller->getStudentInfo();
 
 if(isset($_GET['id'])) {
-    $controller->editStudent();
+    $controller->getStudentInfo($_GET['id']);
+}
+
+else {
+    $controller->getAllStudentInfo();
 }

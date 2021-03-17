@@ -35,6 +35,8 @@ error_reporting(E_ALL);
     <meta name="theme-col p-2or" content="#fafafa">
 
 </head>
+
+<body>
 <header>
     <div class="row " id="School of many">
         <h1 class="mx-auto titlecaption ">School of many<img src="img/logo.png" alt="Logo School of many "></h1>
@@ -51,4 +53,3 @@ error_reporting(E_ALL);
         <h2>I'm vinum veritas in aqua vitalis</h2>
     </div>
 </header>
-<body>

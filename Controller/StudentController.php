@@ -13,31 +13,31 @@ class StudentController
         $this->pdo = $connection->connect();
     }
 
-    protected function getStudentInfo()
+    public function getStudentInfo($id)
     {
-        $student = studentLoader::getStudent($_GET['id'], $this->pdo);
+        $student = studentLoader::getStudent($id, $this->pdo);
         require 'View/studentView.php';
     }
 
-    protected function getAllStudentInfo()
+    public function getAllStudentInfo(): void
     {
         $allStudents = studentLoader::getAllStudents($this->pdo);
         require 'View/students.php';
     }
 
-    protected function createNewStudent()
+    public function createNewStudent()
     {
         $create = studentLoader::createStudent($this->pdo);
         require 'View/studentCreate.php';
     }
 //should the edit also conclude delete->Student?
-    protected function editStudent()
+    public function editStudent()
     {
         $edit = studentLoader::saveStudent($_GET['id'], $this->pdo);
         require 'View/studentEdit.php';
     }
 
-    protected function removeStudent()
+    public function removeStudent()
     {
         $delete = studentLoader::deleteStudent($_GET['id'], $this->pdo);
         require 'View/studentView.php';

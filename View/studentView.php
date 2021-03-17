@@ -6,16 +6,13 @@ ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);
 
-$connection = new DbConnect();
-$pdo = $connection->connect();
-$student = studentLoader::getStudent($_GET['id'],$pdo);
 
 require 'includes/header.php';
 
 
 ?>
 
-<body>
+<main>
 
 <!--check if data were SAVEd and alert succeeded changes -->
 <?php if(isset($_POST ['save'])):?>
@@ -72,6 +69,6 @@ header( "refresh:3;url=../../index.php" );
 </section>
 <?php endif;?>
 
-</body>
+</main>
 
 <?php require 'includes/footer.php'; ?>
