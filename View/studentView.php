@@ -2,6 +2,7 @@
 declare(strict_types=1);
 
 require "Loaders/studentLoader.php";
+require "includes/header.php";
 
 ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
@@ -64,3 +65,4 @@ header( "refresh:3;url=../../index.php" );
     </table>
 </section>
 <?php endif;?>
+<?php require "includes/footer.php"; ?>
