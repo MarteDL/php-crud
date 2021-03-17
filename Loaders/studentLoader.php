@@ -3,6 +3,8 @@
 
 class studentLoader
 {
+    private array $newData = [];
+
         public static function getStudent(int $id, PDO $pdo) : student
         {
             $handle = $pdo->prepare('SELECT firstname, lastname, email, classname FROM student WHERE studentId = :id');
@@ -27,7 +29,7 @@ class studentLoader
     }
 
 //------------------------------------------- studentView update/delete button ------------------------------------------------
-    public function deleteStudent(int $id, PDO $pdo): void
+    public static function deleteStudent(int $id, PDO $pdo): void
     {
         $handle = $pdo->prepare('DELETE FROM student WHERE studentId = :id');
         $handle->bindValue(':id', $id);
@@ -35,7 +37,7 @@ class studentLoader
     }
 
 //updated data
-    public function saveStudent(array $newData, PDO $pdo)
+    public static function saveStudent(array $newData, PDO $pdo)
     {
         $handle = $pdo->prepare('UPDATE student SET firstname=:firstname, lastname=:lastname, email=:email, classname=:classname WHERE studentId = :id'); //add teacher parameter
         $handle->bindValue(':id', $newData['studentID']);

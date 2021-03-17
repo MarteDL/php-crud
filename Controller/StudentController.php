@@ -2,41 +2,42 @@
 
 class StudentController
 {
+    private PDO $pdo;
+
+    public function __construct()
+    {
+        $connection = new DbConnect();
+        $this->pdo = $connection->connect();
+    }
 
     protected function getStudentInfo()
     {
-$connection = new DbConnect();
-$pdo = $connection->connect();
-
-$student = studentLoader::getStudent($_GET['id'], $pdo);
-require '?';
+        $student = studentLoader::getStudent($_GET['id'], $this->pdo);
+        require 'View/studentView.php';
     }
 
     protected function getAllStudentInfo()
     {
-        $connection = new DbConnect();
-        $pdo = $connection->connect();
-
-        $allStudents = studentLoader::getAllStudents($pdo);
-        require '?';
+        $allStudents = studentLoader::getAllStudents($this->pdo);
+        require 'View/students.php';
     }
 
     protected function createNewStudent()
     {
-        $connection = new DbConnect();
-        $pdo = $connection->connect();
-
-        $edit = studentLoader::createStudent($pdo);
-        require '?';
+        $create = studentLoader::createStudent($this->pdo);
+        require 'View/studentCreate.php';
     }
-
+//should the edit also conclude delete->Student?
     protected function editStudent()
     {
-        $connection = new DbConnect();
-        $pdo = $connection->connect();
+        $edit = studentLoader::saveStudent($_GET['id'], $this->pdo);
+        require 'View/studentEdit.php';
+    }
 
-        $delete = studentLoader::saveStudent($_GET['id'], $pdo);
-        require '?';
+    protected function removeStudent()
+    {
+        $delete = studentLoader::deleteStudent($_GET['id'], $this->pdo);
+        require 'View/studentView.php';
     }
 
 }
