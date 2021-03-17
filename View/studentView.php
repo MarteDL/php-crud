@@ -15,7 +15,7 @@ require 'includes/header.php';
 
 ?>
 
-
+<body>
 
 <!--check if data were SAVEd and alert succeeded changes -->
 <?php if(isset($_POST ['save'])):?>
@@ -70,6 +70,8 @@ header( "refresh:3;url=../../index.php" );
         </tr>
     </table>
 </section>
-<?php endif;
+<?php endif;?>
 
-require 'includes/footer.php';
+</body>
+
+<?php require 'includes/footer.php'; ?>
