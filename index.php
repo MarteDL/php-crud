@@ -9,7 +9,7 @@ error_reporting(E_ALL);
 
 
 require "Model/user.php";
-require "Model/group.php";
+//require "Model/group.php";
 require "Model/student.php";
 require "Model/group.php";
 require "Model/DbConnect.php";
