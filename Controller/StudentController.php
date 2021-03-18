@@ -39,7 +39,7 @@ class StudentController
 //should the edit also conclude delete->Student?
     public function editStudent($id): void
     {
-        $student = studentLoader::getStudent($_GET['id']);
+        $student = studentLoader::getStudent($_GET['id'], $this->pdo);
         $student->setEmail($_POST['email']);
         $student->setFirstName($_POST['firstName']);
         $student->setLastName($_POST['lastName']);
@@ -53,6 +53,11 @@ class StudentController
     {
         studentLoader::deleteStudent($_GET['id'], $this->pdo);
         require 'View/studentView.php';
+    }
+
+    public function searchStudentTeacher($search): void{
+        $results = studentLoader::searchName($search, $this->pdo);
+        require 'search.php';
     }
 
 //-------------  checks for correct work of buttons -----------------

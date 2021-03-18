@@ -3,7 +3,7 @@
 
 class studentLoader
 {
-    public static function getStudent(int $id, PDO $pdo) : student
+    public static function getStudent(int $id, PDO $pdo): student
     {
         $handle = $pdo->prepare('SELECT s.studentID, s.firstName, s.email, s.className, s.lastName, concat(t.lastName, " " , t.firstName) teacher FROM student s LEFT JOIN teacher t on s.className = t.className WHERE studentId = :id');
         $handle->bindValue(':id', $id);
@@ -39,13 +39,12 @@ class studentLoader
     }
 
 //updated data
-    public static function saveStudent(student $student, PDO $pdo) : void
+    public static function saveStudent(student $student, PDO $pdo): void
     {
-        if($student->getId() !== null) {
+        if ($student->getId() !== null) {
             $handle = $pdo->prepare('UPDATE student SET firstname=:firstname, lastname=:lastname, email=:email, classname=:classname WHERE studentId = :id'); //add teacher parameter
             $handle->bindValue(':id', $student->getId());
-        }
-        else { //insert
+        } else { //insert
             $handle = $pdo->prepare('INSERT INTO student (firstname, lastname, email, classname) VALUES (:firstname, :lastname, :email, :classname)'); //add teacher parameter
         }
 
@@ -57,4 +56,17 @@ class studentLoader
         $handle->execute();
     }
 
+//----------------------------------------Search function--------------------------------------------------------------
+//not working properly
+    public static function searchName($search, PDO $pdo): array
+    {
+        $handle = $pdo->prepare("SELECT s.*, t.* FROM student s inner join teacher t on s. className = t.className WHERE s.firstName LIKE '%$search%' OR t.firstName LIKE '%$search%' OR s.lastName LIKE '%$search%' OR t.lastName LIKE '%$search%' ORDER BY t.lastName, s.lastName");
+        $handle->execute();
+        $results = $handle->fetchAll(PDO::FETCH_ASSOC);
+        return $results;
+
+    }
+    //$handle->bindValue(':string', '%'.$search.'%');
+//SELECT s.*, t.* FROM student s inner join teacher t on s. className = t.className WHERE s.firstName LIKE :string OR t.firstName LIKE :string OR s.lastName LIKE :string OR t.lastName LIKE :string ORDER BY s.lastName, t.lastName
+//SELECT * FROM student s inner join teacher t on s. className = t.className WHERE s.firstName LIKE '%s%' OR t.firstName LIKE '%s%' OR s.lastName LIKE '%s%' OR t.lastName LIKE '%s%' ORDER BY s.lastName, t.lastName
 }

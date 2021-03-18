@@ -28,6 +28,10 @@ else if (!isset($_GET['edit'])){
     $controller->getAllStudentInfo();
 }
 
+if (isset($_POST['search_button'])){
+    $controller->searchStudentTeacher($_POST['search']);
+}
+
 //------------------- checks from student controller -------------------------
 $controller->checkSavedData();
 $controller->checkDeletedData();

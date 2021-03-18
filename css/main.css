@@ -7,6 +7,11 @@ main {
 
 }
 
+.footer{
+    background-color: #0f6674;
+    height: 30px;
+}
+
 .container-fluid.main {
     background-image: url("../img/bg.jpg");
     background-position: center;
