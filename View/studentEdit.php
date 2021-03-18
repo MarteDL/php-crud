@@ -1,12 +1,8 @@
 <?php
-declare(strict_types=1);
-require "Controller/groupController.php";
-
-ini_set('display_errors', '1');
-ini_set('display_startup_errors', '1');
-error_reporting(E_ALL);
-
+require "includes/header.php"
 ?>
+
+<main>
 <!------------------- edit form ---------------------->
 <form method="post" action="index.php">
     <table style="width:100%"> <!-- temporary styling-->
@@ -46,3 +42,5 @@ error_reporting(E_ALL);
     <input type="hidden" name="studentID" value="<?php echo $student->getId() ?>"/>
 
 </form>
+</main>
+<?php require "includes/footer.php" ?>

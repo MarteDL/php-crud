@@ -1,7 +1,6 @@
 <?php
 
 use JetBrains\PhpStorm\Pure;
-require "user.php";
 
 class student extends user
 {

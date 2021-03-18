@@ -16,7 +16,7 @@ class StudentController
         require 'View/studentView.php';
     }
 
-    public function getStudentInfo(int $id): student
+    public function getStudentInfo(int $id): teacher
     {
         $student = studentLoader::getStudent($id, $this->pdo);
         require 'View/studentEdit.php';
@@ -30,12 +30,11 @@ class StudentController
 
     public function createNewStudent(): void
     {
-        $student = new student($_POST['lastName'], $_POST['firstName'], $_POST['email'], new group($_POST['className']));
+        $student = new teacher($_POST['lastName'], $_POST['firstName'], $_POST['email'], new group($_POST['className']));
 
         studentLoader::saveStudent($student, $this->pdo);
         require 'View/studentCreate.php';
     }
-
 //should the edit also conclude delete->Student?
     public function editStudent($id): void
     {
