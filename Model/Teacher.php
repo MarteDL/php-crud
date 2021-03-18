@@ -2,16 +2,15 @@
 
 
 use JetBrains\PhpStorm\Pure;
-require "user.php";
 
 class teacher extends user
 {
     /** @var student[] */
     private array $students;
 
-    #[Pure] public function __construct(int $id = 0, string $lastName, string $firstName, string $email, string $class)
+    #[Pure] public function __construct(string $lastName, string $firstName, string $email, group $group, int $id = 0)
     {
-        parent::__construct($id, $lastName, $firstName, $email, $class);
+        parent::__construct($lastName, $firstName, $email, $group, $id);
     }
 
 }
