@@ -1,3 +1,4 @@
+
 main {
     background-image: url("../img/bg.jpg");
     background-position: center;
@@ -9,16 +10,17 @@ main {
     font-family: 'Tangerine', serif;
     font-size: 20px;
     text-shadow: 1px 1px 1px #4f4f4f;
-
 }
 
 img {
     max-width: border-box;
     position: center;
 }
+
 tr, td {
     width: 50px;
 }
+
 #footer {
     position: fixed;
     padding-top: 10px;

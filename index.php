@@ -80,11 +80,16 @@ if (isset($_GET['page']) && $_GET['page'] === 'groups') {
 
 }
 
+if (isset($_POST['search_button'])){
+    $controller->searchStudentTeacher($_POST['search']);
+}
+
+//------------------- checks from student controller -------------------------
+$controller->checkSavedData();
+$controller->checkDeletedData();
+$controller->checkEditStudent();
+
 else {
     $controller->render();
 }
-
-
-
-
 

@@ -32,25 +32,46 @@
 
 <body>
 <header>
-    <div class="row " id="School of many">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">School of many</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-item nav-link" href="#">Students</a>
+                <a class="nav-item nav-link" href="#">Teachers</a>
+                <a class="nav-item nav-link" href="#">Classes</a>
+                <form method="post" class="search_field">
+                    <input type="text" name="search" placeholder="Search...">
+                    <button type="submit" name="search_button">SEARCH</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+    <!--
+    <div class="row" id="School of many">
         <h1 class="mx-auto titlecaption ">School of many<img src="img/logo.png" alt="Logo School of many "></h1>
         <nav class="">
-            <div class="container-fluid">
+            <div class="container-fluid">-->
+
+                <!--
                 <a class="navbar-brand" href="#">Navbar</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+                -->
             </div>
         </nav>
-        <h2>I'm vinum veritas in aqua vitalis</h2>
     </div>
 </header>
-
 <?php if(isset($_SESSION['message'])):?>
     <div class="alert alert-success" role="alert">
         <?php echo $_SESSION['message']?>
         <?php unset($_SESSION['message'])?>
     </div>
+
 <?php endif;?>
