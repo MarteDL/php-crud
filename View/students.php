@@ -32,7 +32,7 @@ require "includes/header.php";
                        class=""><?php echo $student->getlastname() ?>
                 </td>
                 <td>
-                    <a href="classView.php?className=<?php echo $student->getGroup()->getName() ?>"></a>
+                    <a href="classView.php?className=<?php echo $student->getGroup()->getName() ?>"><?php echo $student->getGroup()->getName() ?></a>
                 </td>
                 <td>
                     <form method="post" style="float: left"><!-- temporary styling-->
