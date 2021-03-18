@@ -2,7 +2,7 @@
 
 use JetBrains\PhpStorm\Pure;
 
-class teacher extends user
+class student extends user
 {
     private string $teacher;
 
