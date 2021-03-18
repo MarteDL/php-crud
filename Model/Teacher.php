@@ -5,7 +5,7 @@ use JetBrains\PhpStorm\Pure;
 
 class teacher extends user
 {
-    /** @var student[] */
+    /** @var teacher[] */
     private array $students;
 
     #[Pure] public function __construct(string $lastName, string $firstName, string $email, group $group, int $id = 0)
