@@ -20,7 +20,7 @@ require "includes/header.php";
             <th></th>
         </tr>
         <?php
-        /** @var student[] $allStudents */
+        /** @var teacher[] $allStudents */
         foreach ($allStudents as $student): ?>
             <tr>
                 <td>
