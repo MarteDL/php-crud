@@ -1,8 +1,5 @@
 <?php
 
-require "Model/DbConnect.php";
-require "Loaders/studentLoader.php";
-
 class StudentController
 {
     private PDO $pdo;

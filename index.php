@@ -14,34 +14,56 @@ require "Model/Group.php";
 require "Model/Teacher.php";
 require "Loaders/studentLoader.php";
 require "Loaders/teacherLoader.php";
+require "Loaders/groupLoader.php";
 require "Controller/HomepageController.php";
 require "Controller/StudentController.php";
 require "Controller/TeacherController.php";
-//require "View/studentEdit.php";
+require "Controller/GroupController.php";
 
 $controller = new HomepageController();
 
-// go to homepage if we haven't clicked any page yet
-if (!isset($_GET['page'])) {
-    $controller->render($_GET);
-}
-
-// go to any page with students
-else if ($_GET['page'] === 'students') {
-
-$controller = new StudentController();
+if (isset($_GET['page']) && $_GET['page'] === 'students') {
+    $controller = new StudentController();
 
 //if URL shows ID -> shows student details
-if(isset($_GET['id']) ) {
-    $controller->showStudentInfo((int) $_GET['id']);
-}
+    if (isset($_GET['id'])) {
+        $controller->showStudentInfo((int)$_GET['id']);
+    }
 // if URL doesnt show any ID nor EDIT -> shows all students
 // if URL shows EDIT -> shows EDIT page with a specific student -> checkEditStudent()
-else if (!isset($_GET['edit'])){
-    $controller->getAllStudentInfo();
+    else if (!isset($_GET['edit'])) {
+        $controller->getAllStudentInfo();
+    }
+
+    $controller->checkSavedData();
+    $controller->checkDeletedData();
+    $controller->checkEditStudent();
 }
 
-//------------------- checks from student controller -------------------------
-$controller->checkSavedData();
-$controller->checkDeletedData();
-$controller->checkEditStudent();
+if (isset($_GET['page']) && $_GET['page'] === 'groups') {
+    $controller = new GroupController();
+
+    if (isset($_GET['className'])) {
+        $controller->showGroupInfo((string)$_GET['className']);
+    }
+
+// if URL doesnt show any ID nor EDIT -> shows all students
+// if URL shows EDIT -> shows EDIT page with a specific student -> checkEditStudent()
+    else if (!isset($_GET['edit'])) {
+        $controller->getAllGroupsInfo();
+    }
+
+    $controller->checkSavedData();
+    $controller->checkDeletedData();
+    $controller->checkEditGroup();
+
+}
+
+else {
+    $controller->render();
+}
+
+
+
+
+

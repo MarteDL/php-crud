@@ -3,7 +3,7 @@
 
 class HomepageController
 {
-    public function render($GET)
+    public function render(): void
     {
         require 'View/homepage.php';
     }

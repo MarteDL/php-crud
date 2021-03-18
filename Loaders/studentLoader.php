@@ -30,6 +30,26 @@ class studentLoader
         return $students;
     }
 
+    /**
+     * @param PDO $pdo
+     * @return student[]
+     */
+    public static function getAllStudentsOfGroup(string $className, PDO $pdo): array {
+        $handle = $pdo->prepare('SELECT * FROM student where className = :className order by lastname, firstname');
+        $handle->bindValue(':className', $className);
+        $handle->execute();
+
+        $studentsArray = $handle->fetchAll(PDO::FETCH_ASSOC);
+
+        $students = [];
+
+        foreach ($studentsArray as $student) {
+            $students[] = new student($student['lastName'], $student['firstName'], $student['email'], new group($student['className']), $student['studentID']);
+        }
+
+        return $students;
+    }
+
 //------------------------------------------- studentView update/delete button ------------------------------------------------
     public static function deleteStudent(student $student, PDO $pdo): void
     {
