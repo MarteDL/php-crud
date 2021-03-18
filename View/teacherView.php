@@ -1,3 +1,4 @@
+
 <?php require 'includes/header.php'; ?>
 
 <main>
@@ -50,6 +51,5 @@
     </section>
 
 </main>
-
 <?php require 'includes/footer.php'; ?>
 
