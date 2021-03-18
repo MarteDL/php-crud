@@ -35,6 +35,8 @@ FROM class c LEFT JOIN teacher t on c.name = t.className ORDER BY name');
         return $groups;
     }
 
+
+
     public static function deleteGroup(group $group, PDO $pdo): void
     {
         $handle = $pdo->prepare('DELETE FROM class WHERE className = :className');
@@ -47,7 +49,7 @@ FROM class c LEFT JOIN teacher t on c.name = t.className ORDER BY name');
     {
         if($group->getName() !== null) {
             $handle = $pdo->prepare('UPDATE class SET name=:name, location=:location, teacherID=:teacherID WHERE name=:classname');
-            $handle->bindValue(':className', $group->getName());
+            $handle->bindValue(':name', $group->getName());
         }
         else { //insert
             $handle = $pdo->prepare('INSERT INTO class (name, location, teacherID) VALUES (:name, :location, :teacherID)');
@@ -55,7 +57,7 @@ FROM class c LEFT JOIN teacher t on c.name = t.className ORDER BY name');
 
         $handle->bindValue(':name', $group->getName());
         $handle->bindValue(':location', $group->getLocation());
-        $handle->bindValue(':teacherID', $group->getTeacher()->getId());
+        $handle->bindValue(':teacher', $group->getTeacher());
         $handle->execute();
     }
 }
