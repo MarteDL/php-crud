@@ -19,3 +19,10 @@ img {
 tr, td {
     width: 50px;
 }
+#footer {
+    position: fixed;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    bottom: 0;
+    width: 100%;
+}
