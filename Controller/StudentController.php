@@ -35,7 +35,6 @@ class StudentController
         studentLoader::saveStudent($student, $this->pdo);
         require 'View/studentCreate.php';
     }
-
 //should the edit also conclude delete->Student?
     public function editStudent($id): void
     {
