@@ -37,7 +37,6 @@ require 'includes/header.php';
                 <!-- edit button -->
                 <a href="index.php?edit=<?php echo $student->getId() ?>" class="btn btn-primary" >Edit student</a>
             </td>
-            </td>
         </tr>
     </table>
 </section>
