@@ -11,21 +11,27 @@ require "includes/header.php"
             <th>Lastname</th>
             <th>Email</th>
             <th>Class name</th>
-            <th>Submit</th>
+            <th></th>
         </tr>
         <tr>
-            <td><input type="text" name="firstName" value="<?php echo $student->getFirstname() ?>"/></td>
+            <td><input type="text" name="firstName" value="<?php echo
+                    /** @var student $student */
+                $student->getFirstname() ?>"/></td>
             <td><input type="text" name="lastName" value="<?php echo $student->getLastname() ?>"/></td>
             <td><input type="text" name="email" value="<?php echo $student->getEmail() ?>"/></td>
             <!-- creates whole list of class names-->
             <td>
                 <select name="className">
                     <!-- doesnt work yet because of no existing groupController-->
-                    <?php foreach (groupController::getAllGroups() as $group): ?>
+                    <?php
+                    /** @var group[] $allGroups */
+                    foreach ($allGroups as $group):
+                        $groupName= $group->getName();
+                        ?>
                         <!-- checks which class from the generated list = the students class-->
-                        <option value="<?php echo $group ?>" <?php if ($group === $student->getGroup()) {
+                        <option value="<?php echo $groupName?>" <?php if ($groupName === $student->getGroup()->getName()) {
                             echo 'selected';
-                        } ?>><?php echo $group ?></option>
+                        } ?>><?php echo $groupName ?></option>
                     <?php endforeach; ?>
                 </select>
             </td>
@@ -33,14 +39,11 @@ require "includes/header.php"
                 <form method="post" action="../index.php">
                     <!--  EDIT - save button -->
                     <input type="hidden" name="id" value="<?php echo $student->getId() ?>"/>
-                    <input type="submit" name="save" value="Save" class="btn btn-danger"/>
+                    <input type="submit" name="saveStudent" value="Save" class="btn btn-danger"/>
                 </form>
             </td>
         </tr>
     </table>
-    <!--passing student ID back ->to refer to it with the new values-->
-    <input type="hidden" name="studentID" value="<?php echo $student->getId() ?>"/>
-
 </form>
 </main>
 <?php require "includes/footer.php" ?>

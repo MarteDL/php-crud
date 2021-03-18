@@ -3,14 +3,14 @@
 <main>
     <table style="width:100%">
         <tr>
-            <th>Name</th>
-            <th>Location</th>
-            <th>Teacher</th>
+            <th>Firstname</th>
+            <th>Lastname</th>
+            <th>Classname</th>
             <th></th>
         </tr>
         <?php
-        //in progress -debugging
-        /** @var group[] $allTeachers */
+
+        /** @var teacher[] $allTeachers */
         foreach ($allTeachers as $teacher): ?>
             <tr>
                 <td>
@@ -27,11 +27,11 @@
                 <td>
                     <form method="post" style="float: left"><!-- temporary styling-->
                         <!-- delete button -->
-                        <input type="hidden" name="id" value="<?php echo $teacher->getName() ?>"/>
+                        <input type="hidden" name="id" value="<?php echo $teacher->getId() ?>"/>
                         <input type="submit" name="delete" value="Delete" class="btn btn-danger"/>
                     </form>
                     <!-- edit button -->
-                    <a href="?page=teachers&edit=<?php echo $teacher->getName() ?>" class="btn btn-primary">Edit group</a>
+                    <a href="?page=teachers&edit=<?php echo $teacher->getId() ?>" class="btn btn-primary">Edit teacher</a>
                 </td>
             </tr>
         <?php endforeach; ?>

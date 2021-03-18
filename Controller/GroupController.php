@@ -50,7 +50,6 @@ class GroupController
 
 //-------------  checks for correct work of buttons -----------------
 
-//check if data were SAVEd
     public function checkSavedData(): void
     {
         if (isset($_POST ['save'])) {

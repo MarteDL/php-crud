@@ -15,6 +15,12 @@ class TeacherController
         require 'View/teacherView.php';
     }
 
+    public function getTeacherInfo(int $id): teacher
+    {
+        $teacher = teacherLoader::getTeacher($id, $this->pdo);
+        require 'View/teacherEdit.php';
+    }
+
     public function getAllTeachersInfo(): void
     {
         $allTeachers = teacherLoader::getAllTeachers($this->pdo);
@@ -24,7 +30,7 @@ class TeacherController
 
     public function createNewTeacher(): void
     {
-        $teacher = new teacher($_POST['lastName'], $_POST['firstName'], $_POST['email'], new teacher($_POST['className']));
+        $teacher = new teacher($_POST['firstName'],$_POST['lastName'], $_POST['email'], new group($_POST['className']));
 
         teacherLoader::saveTeacher($teacher, $this->pdo);
         require 'View/teacherCreate.php';
@@ -36,8 +42,8 @@ class TeacherController
         $teacher->setFirstName($_POST['firstName']);
         $teacher->setLastName($_POST['lastName']);
         $teacher->setEmail($_POST['email']);
-        $teacher->setStudents($_POST['students']);//????
-        $teacher->setGroup(new group($_POST['className']));//???
+       // $teacher->setStudents($_POST['students']);
+        $teacher->setGroup(new group($_POST['className']));
 
         teacherLoader::saveTeacher($teacher, $this->pdo);
         require 'View/teacherEdit.php';
@@ -51,20 +57,10 @@ class TeacherController
 
 //-------------  checks for correct work of buttons -----------------
 
-//check if data were SAVEd
-    public function checkSavedData(): void
+//check if data were SAVE
+    public function saveData(): void
     {
-        if (isset($_POST ['save'])) {
-            teacherLoader::saveTeacher($_POST['teacher'], $this->pdo);
-        }
-    }
-
-//DELETE data check
-    public function checkDeletedData(): void
-    {
-        if (isset($_POST ['delete'])) {
-            teacherLoader::deleteTeacher($_POST['teacher'], $this->pdo);
-        }
+            teacherLoader::saveTeacher(new teacher($_POST['firstName'],$_POST['lastName'],$_POST['email'],new group($_POST['className'])), $this->pdo);
     }
 
 //checking if there is an edit parameter ->edit page

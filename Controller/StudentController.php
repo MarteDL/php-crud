@@ -16,7 +16,7 @@ class StudentController
         require 'View/studentView.php';
     }
 
-    public function getStudentInfo(int $id): teacher
+    public function getStudentInfo(int $id): student
     {
         $student = studentLoader::getStudent($id, $this->pdo);
         require 'View/studentEdit.php';
@@ -61,20 +61,10 @@ class StudentController
 
 //-------------  checks for correct work of buttons -----------------
 
-//check if data were SAVEd
-    public function checkSavedData(): void
+//check if data were SAVE
+    public function saveData(): void
     {
-        if (isset($_POST ['save'])) {
-            studentLoader::saveStudent($_POST['student'], $this->pdo);
-        }
-    }
-
-//DELETE data check
-    public function checkDeletedData(): void
-    {
-        if (isset($_POST ['delete'])) {
-            studentLoader::deleteStudent($_POST['id'], $this->pdo);
-        }
+            studentLoader::saveStudent(new student($_POST['lastName'],$_POST['firstName'],$_POST['email'],new group($_POST['className']),$_POST['id']) ,$this->pdo);
     }
 
 //checking if there is an edit parameter ->edit page
@@ -82,6 +72,7 @@ class StudentController
     {
         if (isset($_GET['edit'])) {
             $student = studentLoader::getStudent($_GET['edit'], $this->pdo);
+            $allGroups=groupLoader::getAllGroups($this->pdo);
             require 'View/studentEdit.php';
         }
     }
