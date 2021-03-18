@@ -13,11 +13,16 @@ class teacher extends user
     {
         parent::__construct($lastName, $firstName, $email, $group, $id);
 
+              if ($students !== null) {
+            $this->students = $students;
+        }
+
     }
 
     public function getStudents(): array
     {
         return $this->students;
+
     }
 
 }

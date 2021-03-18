@@ -1,47 +1,55 @@
-<?php
-declare(strict_types=1);
 
-ini_set('display_errors', '1');
-ini_set('display_startup_errors', '1');
-error_reporting(E_ALL);
+<?php require 'includes/header.php'; ?>
 
-require 'includes/header.php';
-?>
+<main>
+    <!--table of detailed overview-->
+    <section>
+        <table style="width:100%">
+            <tr>
+                <th>Firstname</th>
+                <th>Lastname</th>
+                <th>Email</th>
+                <th>Class name</th>
+                <th>Assigned students</th>
+                <th></th>
+            </tr>
+            <tr>
+                <td><?php echo $teacher->getFirstname() ?></td>
+                <td><?php echo $teacher->getLastname() ?></td>
+                <td><?php echo $teacher->getEmail() ?></td>
+                <td>
+                    <a href="?page=groups&className=<?php echo $teacher->getGroup()->getName() ?>"><?php echo $teacher->getGroup()->getName() ?></a>
+                </td>
+                <td><div class="dropdown show">
+                        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Assigned students
+                        </a>
 
-    <main>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <?php
+                            foreach ($teacher->getAllStudentsOfGroup() as $student): ?>
+                            <a href="?page=students&id=<?php echo $student->getId() ?>"
+                               class=""><?php echo $student->getFirstname(),$student->getlastname() ; ?>
+                            <?php endforeach; ?>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                <td>
+                    <!-- edit button -->
+                    <a href="?page=students&edit=<?php echo $teacher->getId() ?>" class="btn btn-primary">Edit
+                        student</a>
+                    <form method="post"><!-- temporary styling-->
+                        <!-- delete button -->
+                        <input type="hidden" name="id" value="<?php echo $teacher->getId() ?>"/>
+                        <input type="submit" name="delete" value="Delete" class="btn btn-danger"/>
+                    </form>
+                </td>
+                </td>
+            </tr>
+        </table>
+    </section>
 
-        <!--table of detailed overview-->
-        <section>
-            <table style="width:100%">
-                <tr>
-                    <th>Firstname</th>
-                    <th>Lastname</th>
-                    <th>Email</th>
-                    <th>Class name</th>
-                    <th>Students</th>
-                    <th></th>
-                </tr>
-                <tr>
-                    <td><?php echo $student->getFirstname() ?></td>
-                    <td><?php echo $student->getLastname()?></td>
-                    <td><?php echo $student->getEmail() ?></td>
-                    <td><a href="classView.php?className=<?php echo $student->getGroup()->getName() ?>"><?php echo $student->getGroup()->getName() ?></a></td>
-                    <td><a href="teacherView.php?teacherID=<?php echo $student->getTeacher() ?>"><?php echo $student->getTeacher() ?></a></td>
-                    <td>
-                    <td>
-                        <form method="post" ><!-- temporary styling-->
-                            <!-- delete button -->
-                            <input type="hidden" name="id" value="<?php echo $student->getId() ?>"/>
-                            <input type="submit" name="delete" value="Delete" class="btn btn-danger"/>
-                        </form>
-                        <!-- edit button -->
-                        <a href="index.php?edit=<?php echo $student->getId() ?>" class="btn btn-primary" >Edit student</a>
-                    </td>
-                </tr>
-            </table>
-        </section>
-
-    </main>
-
+</main>
 <?php require 'includes/footer.php'; ?>
 
