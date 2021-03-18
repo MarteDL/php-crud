@@ -1,5 +1,20 @@
-<footer>
+ <footer>
+        <div class="container-fluid w-100 shadow">
+            <div class="row mt-2 pt-3 row-cols-1 row-cols-md-3 row-cols-lg-3 px-3">
 
+                <div id="links1" class="col  px-5 text-start">
+                            <a href="#" class="text-center">A Classes field with learning is as a water fountain in a desert. We spread the power of knowledge.</a>
+                </div>
+                <div id="links1" class="col  px-5 text-start">
+                            <a href="#" class=" text-center">The Teachers are the backbone of aware institution in the quest for spreading the knowledge and as such , we have chosen them carefully.</a>
+                </div>
+                <div id="links1" class="col  px-5 text-start">
+                            <a href="#" class="text-center">Students from evary edge of the world are welcome to aware school. The only requirement is the thirst for knowledge.</a>
+                </div>
+            </div>
+            <hr>
+            <h6 class="m-0 text-center">Coppyright by Scool of many Ltd &copy;</h6>
+        </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
             crossorigin="anonymous"></script>
