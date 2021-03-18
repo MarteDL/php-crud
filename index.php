@@ -20,7 +20,6 @@ require "Controller/StudentController.php";
 require "Controller/TeacherController.php";
 require "Controller/GroupController.php";
 
-$controller = new HomepageController();
 
 if (isset($_GET['page']) && $_GET['page'] === 'students') {
     $controller = new StudentController();
@@ -34,28 +33,20 @@ if (isset($_GET['page']) && $_GET['page'] === 'students') {
     else if (!isset($_GET['edit'])) {
         $controller->getAllStudentInfo();
     }
-
-    $controller->checkSavedData();
-    $controller->checkDeletedData();
     $controller->checkEditStudent();
 }
 if (isset($_GET['page']) && $_GET['page'] === 'teachers') {
     $controller = new TeacherController();
 
-//if URL shows ID -> shows student details
     if (isset($_GET['id'])) {
         $controller->showTeacherInfo((int)$_GET['id']);
-    }
-// if URL doesnt show any ID nor EDIT -> shows all students
-// if URL shows EDIT -> shows EDIT page with a specific student -> checkEditStudent()
-    else if (!isset($_GET['edit'])) {
+    } else if (!isset($_GET['edit'])) {
         $controller->getAllTeachersInfo();
     }
-
-    $controller->checkSavedData();
-    $controller->checkDeletedData();
     $controller->checkEditTeacher();
 }
+
+//------------------------------------------------------------------------
 if (isset($_GET['page']) && $_GET['page'] === 'groups') {
     $controller = new GroupController();
 
@@ -63,9 +54,14 @@ if (isset($_GET['page']) && $_GET['page'] === 'groups') {
         $controller->showGroupInfo((string)$_GET['className']);
     }
 
+    else if (isset($_GET['edit'])) {
+        var_dump($_GET);
+        $controller->editGroup($_GET['edit']);
+    }
+
 // if URL doesnt show any ID nor EDIT -> shows all students
 // if URL shows EDIT -> shows EDIT page with a specific student -> checkEditStudent()
-    else if (!isset($_GET['edit'])) {
+    else {
         $controller->getAllGroupsInfo();
     }
 
@@ -75,7 +71,35 @@ if (isset($_GET['page']) && $_GET['page'] === 'groups') {
 
 }
 
+if (isset($_POST['search_button'])){
+    $controller->searchStudentTeacher($_POST['search']);
+}
+
+//--------------------------------------------------------------------------------------
+//if (isset($_GET['page']) && $_GET['page'] === 'groups') {
+//    $controller = new GroupController();
+//
+//    if (isset($_GET['className'])) {
+//        $controller->showGroupInfo((string)$_GET['className']);
+//    } else if (!isset($_GET['edit'])) {
+//        $controller->getAllGroupsInfo();
+//    }
+//    $controller->checkEditGroup();
+//}
 else {
+    if (isset($_POST['saveStudent'])) {
+        $controller = new StudentController();
+        $controller->saveData();
+    }
+    if (isset($_POST['saveTeacher'])) {
+        $controller = new TeacherController();
+        $controller->saveData();
+    }
+   if (isset($_POST['saveGroup'])) {
+       $controller = new GroupController();
+      $controller->checkSavedData();
+   }
+    $controller = new HomepageController();
     $controller->render();
 }
 

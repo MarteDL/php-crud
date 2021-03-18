@@ -59,7 +59,7 @@ class studentLoader
     }
 
 //updated data
-    public static function saveStudent(teacher $student, PDO $pdo) : void
+    public static function saveStudent(student $student, PDO $pdo) : void
     {
         if($student->getId() !== null) {
             $handle = $pdo->prepare('UPDATE student SET firstname=:firstname, lastname=:lastname, email=:email, classname=:classname WHERE studentID = :id'); //add teacher parameter

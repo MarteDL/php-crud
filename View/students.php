@@ -41,7 +41,7 @@ require "includes/header.php";
                         <input type="submit" name="delete" value="Delete" class="btn btn-danger"/>
                     </form>
                     <!-- edit button -->
-                    <a href="index.php?edit=<?php echo $student->getId() ?>" class="btn btn-primary">Edit student</a>
+                    <a href="?page=students&edit=<?php echo $student->getId() ?>" class="btn btn-primary">Edit student</a>
                 </td>
             </tr>
         <?php endforeach; ?>
