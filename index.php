@@ -10,6 +10,7 @@ error_reporting(E_ALL);
 
 require "Model/student.php";
 require "Controller/StudentController.php";
+require "Model/group.php";
 
 $controller = new StudentController();
 
