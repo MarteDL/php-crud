@@ -9,11 +9,11 @@ class teacher extends user
     private array $students;
 
 
-    #[Pure] public function __construct(string $lastName, string $firstName, string $email, group $group, int $id = 0)
+    #[Pure] public function __construct(string $lastName, string $firstName, string $email, group $group, int $id = 0, $students = [])
     {
         parent::__construct($lastName, $firstName, $email, $group, $id);
 
-              if ($students !== null) {
+        if (!empty($students)) {
             $this->students = $students;
         }
 
@@ -22,7 +22,6 @@ class teacher extends user
     public function getStudents(): array
     {
         return $this->students;
-
     }
 
 }

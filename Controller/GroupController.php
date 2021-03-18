@@ -23,23 +23,31 @@ class GroupController
     }
 
 
-    public function createNewgroup(): void
+    public function createNewGroup(): void
     {
-        $group = new group($_POST['lastName'], $_POST['firstName'], $_POST['email'], new group($_POST['className']));
+        $group = new group($_POST['name'], $_POST['location'], $_POST['teacher']);
 
         groupLoader::savegroup($group, $this->pdo);
         require 'View/groupCreate.php';
     }
+
 //should the edit also conclude delete->group?
-    public function editGroup($className): void
+    public function editGroup($POST, $className): void
     {
+        var_dump($POST);
         $group = groupLoader::getgroup($className, $this->pdo);
-//        $group->setName($_POST['name']);
-//        $group->setLocation($_POST['location']);
-//        $group->setTeacher($_POST['teacher']);
+        $group->setName($POST['name']);
+        $group->setLocation($POST['location']);
+        $group->setTeacher($POST['teacher']);
 
         groupLoader::savegroup($group, $this->pdo);
         require 'View/groupEdit.php';
+    }
+
+    public function goToEditGroup($className): void
+    {
+        $group = groupLoader::getgroup($className, $this->pdo);
+        require  'View/groupEdit.php';
     }
 
     public function removeGroup(): void
@@ -51,27 +59,27 @@ class GroupController
 //-------------  checks for correct work of buttons -----------------
 
 //check if data were SAVEd
-    public function checkSavedData(): void
-    {
-        if (isset($_POST ['save'])) {
-            groupLoader::savegroup($_POST['group'], $this->pdo);
-        }
-    }
+//    public function checkSavedData(): void
+//    {
+//        if (isset($_POST ['save'])) {
+//            groupLoader::savegroup($_POST['group'], $this->pdo);
+//        }
+//    }
 
 //DELETE data check
-    public function checkDeletedData(): void
-    {
-        if (isset($_POST ['delete'])) {
-            groupLoader::deletegroup($_POST['className'], $this->pdo);
-        }
-    }
+//    public function checkDeletedData(): void
+//    {
+//        if (isset($_POST ['delete'])) {
+//            groupLoader::deletegroup($_POST['className'], $this->pdo);
+//        }
+//    }
 
 //checking if there is an edit parameter ->edit page
-    public function checkEditGroup(): void
-    {
-        if (isset($_GET['edit'])) {
-            $group = groupLoader::getgroup($_GET['edit'], $this->pdo);
-            require 'View/groupEdit.php';
-        }
-    }
+//    public function checkEditGroup(): void
+//    {
+//        if (isset($_GET['edit'])) {
+//            $group = groupLoader::getgroup($_GET['edit'], $this->pdo);
+//            require 'View/groupEdit.php';
+//        }
+//    }
 }

@@ -20,6 +20,8 @@ require "Controller/StudentController.php";
 require "Controller/TeacherController.php";
 require "Controller/GroupController.php";
 
+var_dump($_POST, $_GET);
+
 $controller = new HomepageController();
 
 if (isset($_GET['page']) && $_GET['page'] === 'students') {
@@ -64,8 +66,11 @@ if (isset($_GET['page']) && $_GET['page'] === 'groups') {
     }
 
     else if (isset($_GET['edit'])) {
-        var_dump($_GET);
-        $controller->editGroup($_GET['edit']);
+        $controller->goToEditGroup($_GET['edit']);
+
+        if(isset($_POST['save'])){
+            $controller->editGroup($_POST, $_GET['edit']);
+        }
     }
 
 // if URL doesnt show any ID nor EDIT -> shows all students
@@ -73,10 +78,10 @@ if (isset($_GET['page']) && $_GET['page'] === 'groups') {
     else {
         $controller->getAllGroupsInfo();
     }
-
-    $controller->checkSavedData();
-    $controller->checkDeletedData();
-    $controller->checkEditGroup();
+//
+//    $controller->checkSavedData();
+//    $controller->checkDeletedData();
+//    $controller->checkEditGroup();
 
 }
 
