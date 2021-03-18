@@ -63,9 +63,14 @@ if (isset($_GET['page']) && $_GET['page'] === 'groups') {
         $controller->showGroupInfo((string)$_GET['className']);
     }
 
+    else if (isset($_GET['edit'])) {
+        var_dump($_GET);
+        $controller->editGroup($_GET['edit']);
+    }
+
 // if URL doesnt show any ID nor EDIT -> shows all students
 // if URL shows EDIT -> shows EDIT page with a specific student -> checkEditStudent()
-    else if (!isset($_GET['edit'])) {
+    else {
         $controller->getAllGroupsInfo();
     }
 

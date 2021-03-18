@@ -25,7 +25,7 @@
                     <td>
                         <form method="post" style="float: left"><!-- temporary styling-->
                             <!-- delete button -->
-                            <input type="hidden" name="id" value="<?php echo $group->getName() ?>"/>
+                            <input type="hidden" name="className" value="<?php echo $group->getName() ?>"/>
                             <input type="submit" name="delete" value="Delete" class="btn btn-danger"/>
                         </form>
                         <!-- edit button -->
