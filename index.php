@@ -29,34 +29,19 @@ if (!isset($_GET['page'])) {
 // go to any page with students
 else if ($_GET['page'] === 'students') {
 
-    $controller = new StudentController();
+$controller = new StudentController();
 
-    if (isset($_GET['id'])) {
-        $controller->getStudentInfo($_GET['id']);
-    } else {
-        $controller->getAllStudentInfo();
-    }
+//if URL shows ID -> shows student details
+if(isset($_GET['id']) ) {
+    $controller->showStudentInfo((int) $_GET['id']);
+}
+// if URL doesnt show any ID nor EDIT -> shows all students
+// if URL shows EDIT -> shows EDIT page with a specific student -> checkEditStudent()
+else if (!isset($_GET['edit'])){
+    $controller->getAllStudentInfo();
 }
 
-// go to teacher pages
-else if ($_GET['page'] === 'teachers') {
-
-    $controller = new TeacherController();
-
-    if (isset($_GET['id'])) {
-        $controller->getTeacherInfo($_GET['id']);
-    }
-    else {
-        $controller->getAllTeachersInfo();
-    }
-}
-
-// go to class pages
-else if ($_GET['page'] === 'groups') {
-
-    $controller = new GroupController();
-
-    if (isset($_GET['className'])) {
-        $controller->getGroupInfo($_GET['className']);
-    }
-}
+//------------------- checks from student controller -------------------------
+$controller->checkSavedData();
+$controller->checkDeletedData();
+$controller->checkEditStudent();

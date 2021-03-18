@@ -1,10 +1,11 @@
 <?php
 
+
 class studentLoader
 {
     public static function getStudent(int $id, PDO $pdo) : student
     {
-        $handle = $pdo->prepare('SELECT s.studentID, s.firstName, s.email, s.className, s.lastName, concat(t.lastName, " ", t.firstName) teacher FROM student s LEFT JOIN teacher t on s.className = t.className WHERE studentID = :id');
+        $handle = $pdo->prepare('SELECT s.studentID, s.firstName, s.email, s.className, s.lastName, concat(t.lastName, " ", t.firstName) teacher FROM student s LEFT JOIN teacher t on s.className = t.className WHERE studentId = :id');
         $handle->bindValue(':id', $id);
         $handle->execute();
 
@@ -13,7 +14,10 @@ class studentLoader
         return new student($studentArray['lastName'], $studentArray['firstName'], $studentArray['email'], new group($studentArray['className']), $studentArray['studentID'], $studentArray['teacher']);
     }
 
-    /** @return student[] */
+    /**
+     * @param PDO $pdo
+     * @return student[]
+     */
     public static function getAllStudents(PDO $pdo): array
     {
         $handle = $pdo->query('SELECT * FROM student order by lastname, firstname');
@@ -49,7 +53,7 @@ class studentLoader
         $handle->bindValue(':lastname', $student->getLastName());
         $handle->bindValue(':email', $student->getEmail());
         $handle->bindValue(':classname', $student->getGroup()->getName());
-        // $handle->bindValue(':teacher',$newData['teacher']);
+
         $handle->execute();
     }
 
