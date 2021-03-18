@@ -39,7 +39,23 @@ if (isset($_GET['page']) && $_GET['page'] === 'students') {
     $controller->checkDeletedData();
     $controller->checkEditStudent();
 }
+if (isset($_GET['page']) && $_GET['page'] === 'teachers') {
+    $controller = new TeacherController();
 
+//if URL shows ID -> shows student details
+    if (isset($_GET['id'])) {
+        $controller->showTeacherInfo((int)$_GET['id']);
+    }
+// if URL doesnt show any ID nor EDIT -> shows all students
+// if URL shows EDIT -> shows EDIT page with a specific student -> checkEditStudent()
+    else if (!isset($_GET['edit'])) {
+        $controller->getAllTeachersInfo();
+    }
+
+    $controller->checkSavedData();
+    $controller->checkDeletedData();
+    $controller->checkEditTeacher();
+}
 if (isset($_GET['page']) && $_GET['page'] === 'groups') {
     $controller = new GroupController();
 
