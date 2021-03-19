@@ -33,8 +33,7 @@ class GroupController
         var_dump($GET);
         if (isset($GET['teacherId'])) {
             $teacher = teacherLoader::getTeacher($GET['teacherId'], $this->pdo);
-        }
-        else {
+        } else {
             $teacher = null;
         }
         $group = new group($GET['name'], $GET['location'], $teacher);
@@ -88,15 +87,19 @@ class GroupController
 //        }
 //    }
 
-//------------------ MARTE check-------------------------
-
+//checking if there is an edit parameter ->edit page
 //    public function checkEditGroup(): void
 //    {
 //        if (isset($_GET['edit'])) {
 //            $group = groupLoader::getgroup($_GET['edit'], $this->pdo);
 //            require 'View/groupEdit.php';
 //        }
-   public function exportingData(){
+
+
+
+    public function exportingData()
+    {
         export::exportCSV_group($this->pdo);
-   }}
+    }
+}
 

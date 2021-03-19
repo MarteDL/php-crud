@@ -42,7 +42,7 @@ require "includes/header.php";
 
                     </form>
                     <!-- edit button -->
-                    <a href="?page=students&edit=<?php echo $student->getId() ?>" class="btn btn-primary">Edit student</a>
+                    <a href="?page=students&edit=<?php echo $student->getId() ?>" class="btn btn-secondary">Edit student</a>
                 </td>
             </tr>
         <?php endforeach; ?>

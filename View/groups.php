@@ -30,15 +30,15 @@
                         </form>
                         <!-- edit button -->
                         <a href="?page=groups&edit=<?php echo $group->getName() ?>" class="btn btn-primary">Edit
-                            group</a>
+                            class</a>
                     </td>
                 </tr>
             <?php endforeach; ?>
             <tr class="text-center">
-                <!-- edit button -->
+                <!-- create button -->
                 <td>
-                    <a class="btn btn-primary" href="?page=groups&create=<?php echo $group->getName() ?>">Create new group</a>
-                    <button type="submit" name="export_button_teacher">Download File</button>
+                    <a class="btn btn-primary" href="?page=groups&create=<?php echo $group->getName() ?>">Create new class</a>
+                    <button class="btn btn-primary" type="submit" name="export_button_group">Download File</button>
                 </td>
             </tr>
         </table>

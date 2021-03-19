@@ -31,7 +31,7 @@
                         <input type="submit" name="delete" value="Delete" class="btn btn-danger"/>
                     </form>
                     <!-- edit button -->
-                    <a href="?page=teachers&edit=<?php echo $teacher->getId() ?>" class="btn btn-primary">Edit teacher</a>
+                    <a href="?page=teachers&edit=<?php echo $teacher->getId() ?>" class="btn btn-secondary">Edit teacher</a>
                 </td>
             </tr>
         <?php endforeach; ?>
@@ -39,7 +39,7 @@
             <!-- edit button -->
             <td>
                 <a class="btn btn-primary" href="?page=teachers&create=create?>">Create new teacher</a>
-                <button type="submit" name="export_button_teacher">Download File</button>
+                <button class="btn btn-primary" type="submit" name="export_button_teacher">Download File</button>
             </td>
         </tr>
     </table>
