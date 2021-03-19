@@ -29,9 +29,9 @@ class groupLoader
      * @param PDO $pdo
      * @return group[]
      */
-    public static function getAllGroups(PDO $pdo): array
+    public static function getAllAssignedGroups(PDO $pdo): array
     {
-        $handle = $pdo->query('SELECT name, location, teacherID FROM class ORDER BY name');
+        $handle = $pdo->query('SELECT name, location, teacherID FROM class WHERE teacherID IS NOT NULL ORDER BY name');
         $groupsArray = $handle->fetchAll();
 
         $groups = [];
@@ -77,13 +77,13 @@ class groupLoader
     }
 
 //updated data
-    public static function editGroup(group $group, $className, PDO $pdo): void
+    public static function editGroup(group $group, PDO $pdo): void
     {
 
-        $handle = $pdo->prepare('UPDATE class SET name = :name, location = :location WHERE name = :classname');
+        $handle = $pdo->prepare('UPDATE class SET location = :location, teacherID = :teacherId WHERE name = :classname');
         $handle->bindValue(':name', $group->getName());
         $handle->bindValue(':location', $group->getLocation());
-        $handle->bindValue(':classname', $className);
+        $handle->bindValue(':teacher', $group->getTeacher()->getId());
         $handle->execute();
 
     }

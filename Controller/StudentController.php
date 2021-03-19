@@ -30,7 +30,7 @@ class StudentController
 
     public function goToCreateStudent($GET): void
     {
-        $groups = groupLoader::getAllGroups($this->pdo);
+        $groups = groupLoader::getAllAssignedGroups($this->pdo);
         require 'View/studentCreate.php';
     }
 
@@ -77,7 +77,7 @@ class StudentController
     {
         if (isset($_GET['edit'])) {
             $student = studentLoader::getStudent($_GET['edit'], $this->pdo);
-            $allGroups = groupLoader::getAllGroups($this->pdo);
+            $allGroups = groupLoader::getAllAssignedGroups($this->pdo);
             require 'View/studentEdit.php';
         }
     }

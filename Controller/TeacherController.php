@@ -75,7 +75,7 @@ class TeacherController
     {
         if (isset($_GET['edit'])) {
             $teacher = teacherLoader::getTeacher($_GET['edit'], $this->pdo);
-            $allGroups=groupLoader::getAllGroups($this->pdo);
+            $allGroups=groupLoader::getAllAssignedGroups($this->pdo);
             require 'View/teacherEdit.php';
         }
     }

@@ -36,7 +36,7 @@ class teacherLoader
 
         $teachers = [];
         foreach ($teachersArray as $teacher) {
-            $teachers[] = new teacher($teacher['lastName'], $teacher['firstName'], $teacher['email'], null, $teacher['teacherID']);
+            $teachers[] = new teacher($teacher['lastName'], $teacher['firstName'], $teacher['email'], null, null, $teacher['teacherID']);
         }
 
         return $teachers;
