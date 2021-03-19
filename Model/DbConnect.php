@@ -1,7 +1,7 @@
 <?php
 
 
-class DbConnect
+class   DbConnect
 {
     private const HOST = "sql11.freemysqlhosting.net";
     private string $user = "sql11399129";
