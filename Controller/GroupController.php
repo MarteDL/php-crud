@@ -33,15 +33,15 @@ class GroupController
         var_dump($GET);
         if (isset($GET['teacherId'])) {
             $teacher = teacherLoader::getTeacher($GET['teacherId'], $this->pdo);
-        }
-        else {
+        } else {
             $teacher = null;
         }
         $group = new group($GET['name'], $GET['location'], $teacher);
 
         groupLoader::savegroup($group, $teacher, $this->pdo);
 
-        require 'View/groupView.php';
+        header("location: ?page=groups");
+        exit;
     }
 
 //should the edit also conclude delete->group?
@@ -53,7 +53,7 @@ class GroupController
         $group->setLocation($GET['location']);
         $group->setTeacher(teacherLoader::getTeacher($GET['teacherId'], $this->pdo));
 
-        groupLoader::editGroup($group, $this->pdo);
+        groupLoader::saveGroup($group, $this->pdo);
         require 'View/groupEdit.php';
     }
 
@@ -65,38 +65,17 @@ class GroupController
         require 'View/groupEdit.php';
     }
 
-    public function removeGroup(): void
+    public function checkRemoveGroup(): void
     {
-        groupLoader::deletegroup($_GET['className'], $this->pdo);
-        require 'View/groupView.php';
+        if (isset($_POST ['delete'])) {
+            groupLoader::deletegroup($_POST['className'], $this->pdo);
+        }
     }
 
-//-------------  checks for correct work of buttons -----------------
 
-//    public function checkSavedData(): void
-//    {
-//        if (isset($_POST ['save'])) {
-//            groupLoader::savegroup($_POST['group'], $this->pdo);
-//        }
-//    }
-
-//DELETE data check
-//    public function checkDeletedData(): void
-//    {
-//        if (isset($_POST ['delete'])) {
-//            groupLoader::deletegroup($_POST['className'], $this->pdo);
-//        }
-//    }
-
-//------------------ MARTE check-------------------------
-
-//    public function checkEditGroup(): void
-//    {
-//        if (isset($_GET['edit'])) {
-//            $group = groupLoader::getgroup($_GET['edit'], $this->pdo);
-//            require 'View/groupEdit.php';
-//        }
-   public function exportingData(){
+    public function exportingData()
+    {
         export::exportCSV_group($this->pdo);
-//    }
+    }
 
+}

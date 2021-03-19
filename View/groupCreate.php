@@ -18,6 +18,7 @@ require "includes/header.php"
                 <div class="col">
                     <label for="teacher">Teacher</label>
                     <select name="teacherId" id="teacher">
+                        <option value="<?php echo null ?>"> </option>
                         <?php foreach ($teachers as $teacher) : ?>
                             <option value="<?php echo $teacher->getId() ?>"><?php echo $teacher->getLastName().' '.$teacher->getFirstName() ?></option>
                         <?php endforeach; ?>

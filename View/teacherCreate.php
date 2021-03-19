@@ -23,6 +23,7 @@ require "includes/header.php"
             <div class="col">
                 <label for="classes">Class</label>
                 <select name="className" id="classes">
+                    <option value="<?php echo null ?>"> </option>
                     <?php
                         /** @var group[] $groups */
                         /** @var student $student */

@@ -17,10 +17,9 @@ require "includes/header.php"
             <?php endforeach; ?>
         </select>
         <!--  EDIT - save button -->
-        <input type="submit" name="save" value="Save" class="btn btn-danger"/>
+        <input type="submit" name="saveGroup" value="Save" class="btn btn-danger"/>
         <!--passing group name back ->to refer to it with the new values-->
         <input type="hidden" name="className" value="<?php echo $group->getName() ?>"/>
-
     </form>
 </main>
 <?php require "includes/footer.php" ?>

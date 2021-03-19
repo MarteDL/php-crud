@@ -76,26 +76,31 @@ class groupLoader
         $handle->execute();
     }
 
-//updated data
-    public static function editGroup(group $group, PDO $pdo): void
-    {
-
-        $handle = $pdo->prepare('UPDATE class SET location = :location, teacherID = :teacherId WHERE name = :classname');
-        $handle->bindValue(':name', $group->getName());
-        $handle->bindValue(':location', $group->getLocation());
-        $handle->bindValue(':teacher', $group->getTeacher()->getId());
-        $handle->execute();
-
-    }
 
     public static function saveGroup($group, $teacher, PDO $pdo): void
     {
-        $handle = $pdo->prepare('INSERT INTO class (name, location, teacherID) VALUES (:name, :location, :teacherID)');
-        $handle->bindValue(':name', $group->getName());
-        $handle->bindValue(':location', $group->getLocation());
-        $handle->bindValue(':teacherID', $teacher->getId());
-        $handle->execute();
-
-        //Marte still working on the part where we also update the classname in the teacherTable
+        if($group->getName() !== null) {
+            $handle = $pdo->prepare('UPDATE class SET location = :location, teacherID = :teacherId WHERE name = :classname');
+            $handle->bindValue(':classname', $group->getName());
+            $handle->bindValue(':location', $group->getLocation());
+            $handle->bindValue(':teacherId', $group->getTeacher()->getId());
+            $handle->execute();
+        }
+        else {
+            $handle = $pdo->prepare('INSERT INTO class (name, location, teacherID) VALUES (:name, :location, :teacherID)');
+            $handle->bindValue(':name', $group->getName());
+            $handle->bindValue(':location', $group->getLocation());
+            $handle->bindValue(':teacherID', $teacher->getId());
+            $handle->execute();
+        }
     }
+
+//    public static function addTeacherToGroup($teacherId, $className, $pdo)
+//    {
+//        $handle = $pdo->prepare('UPDATE class SET teacherID = :teacherID WHERE className = :className ');
+//        $handle->bindValue(':teacherId', $teacherId);
+//        $handle->bindValue(':className', $className);
+//        $handle->execute();
+//
+//    }
 }

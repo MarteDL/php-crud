@@ -73,19 +73,25 @@ class teacherLoader
 //updated data
     public static function saveTeacher(teacher $teacher, PDO $pdo) : void
     {
-        if($teacher->getId() !== 0) {
+        if ($teacher->getId() !== 0) {
             $handle = $pdo->prepare('UPDATE teacher SET firstname=:firstname, lastname=:lastname, email=:email, classname=:classname WHERE teacherID = :id');
             $handle->bindValue(':id', $teacher->getId());
-        }
-        else { //insert
+        } else { //insert
             $handle = $pdo->prepare('INSERT INTO teacher (firstname, lastname, email, classname) VALUES (:firstname, :lastname, :email, :classname)');
         }
 
         $handle->bindValue(':firstname', $teacher->getFirstName());
         $handle->bindValue(':lastname', $teacher->getLastName());
         $handle->bindValue(':email', $teacher->getEmail());
-        $handle->bindValue(':classname', $teacher->getGroup()->getName());
+
+        if ($teacher->getGroup() !== null) {
+            $handle->bindValue(':classname', $teacher->getGroup()->getName());
+
+        } else {
+            $handle->bindValue(':classname', null);
+        }
 
         $handle->execute();
+
     }
 }
