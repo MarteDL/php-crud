@@ -14,8 +14,8 @@
     <meta property="og:url" content="../img/logo.jpeg">
     <meta property="og:image" content="img/logo.jpeg">
 
-    <link rel="icon" type="imgage/png" href="img/logo.png">
-    <link rel="apple-touch-icon" href="img/logo.png">
+    <link rel="icon" type="imgage/png" href="../../img/logo-SoM.png">
+    <link rel="apple-touch-icon" href="../../img/logo-SoM.png">
 
 
     <link rel="stylesheet" href="../../css/normalize.css">
@@ -34,20 +34,22 @@
 <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="#">School of many</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav">
-                <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
-                <a class="nav-item nav-link" href="#">Students</a>
-                <a class="nav-item nav-link" href="#">Teachers</a>
-                <a class="nav-item nav-link" href="#">Classes</a>
-                <form method="post" class="search_field">
-                    <input type="text" name="search" placeholder="Search...">
-                    <button type="submit" name="search_button">SEARCH</button>
-                </form>
-            </div>
+            <ul class="navbar-nav mr-auto">
+                <li><a class="nav-item nav-link active" href="?">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li><a class="nav-item nav-link" href="?page=students">Students</a></li>
+                <li><a class="nav-item nav-link" href="?page=teachers">Teachers</a></li>
+                <li><a class="nav-item nav-link" href="?page=groups">Classes</a></li>
+            </ul>
+            <form method="post" class="search_field form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="text" name="search" placeholder="Search...">
+                <button type="submit" name="search_button" class="btn btn-outline-primary my-2 my-sm-0">SEARCH</button>
+            </form>
         </div>
     </nav>
     <!--
@@ -56,22 +58,22 @@
         <nav class="">
             <div class="container-fluid">-->
 
-                <!--
-                <a class="navbar-brand" href="#">Navbar</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                -->
-            </div>
-        </nav>
+    <!--
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+            aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    -->
+    </div>
+    </nav>
     </div>
 </header>
-<?php if(isset($_SESSION['message'])):?>
-    <div class="alert alert-success" role="alert">
-        <?php echo $_SESSION['message']?>
-        <?php unset($_SESSION['message'])?>
-    </div>
+<?php if (isset($_SESSION['message'])): ?>
+<div class="alert alert-success" role="alert">
+    <?php echo $_SESSION['message'] ?>
+    <?php unset($_SESSION['message']) ?>
+</div>
 
-<?php endif;?>
+<?php endif; ?>

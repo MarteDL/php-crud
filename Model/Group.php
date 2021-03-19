@@ -5,15 +5,16 @@ class group
 {
     private string $name;
     private string $location;
-    private string $teacher;
+    private teacher|null $teacher;
     private array $students;
 
-    public function __construct(string $name, string $location = '', string $teacher = '', array $students = [])
+    public function __construct(string $name, string $location = '', teacher|null $teacher = null, array $students = [])
     {
         $this->name = $name;
         $this->location = $location;
         $this->teacher = $teacher;
         $this->students = $students;
+
     }
 
     public function getName(): string
@@ -26,7 +27,7 @@ class group
         $this->name = $name;
     }
 
-    public function getTeacher(): string
+    public function getTeacher(): teacher
     {
         return $this->teacher;
     }
@@ -45,9 +46,9 @@ class group
     }
 
     /**
-     * @param string $teacher
+     * @param teacher $teacher
      */
-    public function setTeacher(string $teacher): void
+    public function setTeacher(teacher $teacher): void
     {
         $this->teacher = $teacher;
     }

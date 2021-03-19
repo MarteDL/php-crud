@@ -1,7 +1,6 @@
 <?php
 
 declare(strict_types=1);
-session_start();
 
 ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
@@ -20,90 +19,88 @@ require "Controller/StudentController.php";
 require "Controller/TeacherController.php";
 require "Controller/GroupController.php";
 
-$controller = new HomepageController();
-
+//-------------------- please DO NOT REMOVE OR CHANGE -> essential for button functioning -------------------
 if (isset($_GET['page']) && $_GET['page'] === 'students') {
     $controller = new StudentController();
-
-//if URL shows ID -> shows student details
+    $controller->checkEditStudent();
+    $controller->checkRemoveStudent();
     if (isset($_GET['id'])) {
         $controller->showStudentInfo((int)$_GET['id']);
-    }
-// if URL doesnt show any ID nor EDIT -> shows all students
-// if URL shows EDIT -> shows EDIT page with a specific student -> checkEditStudent()
-    else if (!isset($_GET['edit'])) {
+    } else if (!isset($_GET['edit'])) {
         $controller->getAllStudentInfo();
     }
 
-    $controller->checkSavedData();
-    $controller->checkDeletedData();
-    $controller->checkEditStudent();
 }
 if (isset($_GET['page']) && $_GET['page'] === 'teachers') {
     $controller = new TeacherController();
-
-//if URL shows ID -> shows student details
+    $controller->checkEditTeacher();
+    $controller->checkRemoveTeacher();
     if (isset($_GET['id'])) {
         $controller->showTeacherInfo((int)$_GET['id']);
-    }
-// if URL doesnt show any ID nor EDIT -> shows all students
-// if URL shows EDIT -> shows EDIT page with a specific student -> checkEditStudent()
-    else if (!isset($_GET['edit'])) {
+    } else if (!isset($_GET['edit'])) {
         $controller->getAllTeachersInfo();
     }
-
-    $controller->checkSavedData();
-    $controller->checkDeletedData();
-    $controller->checkEditTeacher();
 }
+
 if (isset($_GET['page']) && $_GET['page'] === 'groups') {
     $controller = new GroupController();
 
     if (isset($_GET['className'])) {
         $controller->showGroupInfo((string)$_GET['className']);
-    }
-
+    } // if URL shows EDIT -> shows EDIT page with a specific student -> checkEditStudent()
     else if (isset($_GET['edit'])) {
-        var_dump($_GET);
-        $controller->editGroup($_GET['edit']);
-    }
+        $controller->goToEditGroup($_GET['edit']);
 
-// if URL doesnt show any ID nor EDIT -> shows all students
-// if URL shows EDIT -> shows EDIT page with a specific student -> checkEditStudent()
+        if (isset($_POST['save'])) {
+            $controller->editGroup($_POST, $_GET['edit']);
+        }
+    } else if (isset($_GET['create'])) {
+        $controller->goToCreateGroup();
+    } // if URL doesnt show any ID nor EDIT -> shows all students
     else {
         $controller->getAllGroupsInfo();
     }
-
-    $controller->checkSavedData();
-    $controller->checkDeletedData();
-    $controller->checkEditGroup();
-
 }
 
-if (isset($_POST['search_button'])){
-    $controller = new StudentController();
+if (isset($_POST['search_button'])) {
     $controller->searchStudentTeacher($_POST['search']);
+} else {
+    if (isset($_POST['saveStudent'])) {
+        $controller = new StudentController();
+        $controller->saveData();
+    }
+    if (isset($_POST['saveTeacher'])) {
+        $controller = new TeacherController();
+        $controller->saveData();
+    }
+    if (isset($_POST['saveGroup'])) {
+        $controller = new GroupController();
+        $controller->checkSavedData();
+    }
 }
-else {
+//-------Jens code-to be checked--------------
+//else {
+//    $controller->render();
+//}
+
+//if (isset($_POST['export_button_student'])){
+//    $controller = new StudentController();
+//    $controller->exportingData();
+//}
+//if (isset($_POST['export_button_teacher'])){
+//    $controller = new StudentController();
+//    $controller->exportingData();
+//}
+//if (isset($_POST['export_button_group'])){
+//    $controller = new StudentController();
+//    $controller->exportingData();
+//}
+
+
+
+
+
+if (!isset($_GET['page'])){
+    $controller = new HomepageController();
     $controller->render();
 }
-
-if (isset($_POST['export_button_student'])){
-    $controller = new StudentController();
-    $controller->exportingData();
-}
-if (isset($_POST['export_button_teacher'])){
-    $controller = new StudentController();
-    $controller->exportingData();
-}
-if (isset($_POST['export_button_group'])){
-    $controller = new StudentController();
-    $controller->exportingData();
-}
-//------------------- checks from student controller -------------------------
-$controller->checkSavedData();
-$controller->checkDeletedData();
-$controller->checkEditStudent();
-
-
-

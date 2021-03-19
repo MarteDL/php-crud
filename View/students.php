@@ -24,15 +24,15 @@ require "includes/header.php";
         foreach ($allStudents as $student): ?>
             <tr>
                 <td>
-                    <a href="index.php?id=<?php echo $student->getId() ?>"
+                    <a href="?page=students&id=<?php echo $student->getId() ?>"
                        class=""><?php echo $student->getFirstname() ?>
                 </td>
                 <td>
-                    <a href="index.php?id=<?php echo $student->getId() ?>"
+                    <a href="?page=students&id=<?php echo $student->getId() ?>"
                        class=""><?php echo $student->getlastname() ?>
                 </td>
                 <td>
-                    <a href="classView.php?className=<?php echo $student->getGroup()->getName() ?>"><?php echo $student->getGroup()->getName() ?></a>
+                    <a href="?page=groups&className=<?php echo $student->getGroup()->getName() ?>"><?php echo $student->getGroup()->getName() ?></a>
                 </td>
                 <td>
                     <form method="post" style="float: left"><!-- temporary styling-->
@@ -42,7 +42,7 @@ require "includes/header.php";
                         <button type="submit" name="export_button_student">Download File</button>
                     </form>
                     <!-- edit button -->
-                    <a href="index.php?edit=<?php echo $student->getId() ?>" class="btn btn-primary">Edit student</a>
+                    <a href="?page=students&edit=<?php echo $student->getId() ?>" class="btn btn-primary">Edit student</a>
                 </td>
             </tr>
         <?php endforeach; ?>
