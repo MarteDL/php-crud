@@ -1,5 +1,5 @@
 
-main {
+main{
     background-image: url("../img/bg.jpg");
     background-position: center;
     background-repeat: no-repeat;
@@ -11,7 +11,6 @@ main {
     font-size: 20px;
     text-shadow: 1px 1px 1px #4f4f4f;
 }
-
 img {
     max-width: border-box;
     position: center;
@@ -19,6 +18,7 @@ img {
 
 tr, td {
     width: 50px;
+    border: 1px solid black;
 }
 
 #footer {
@@ -34,4 +34,6 @@ tr, td {
     justify-content: center;
 border: 2px solid black;
 }
+#btn btn{
 
+}

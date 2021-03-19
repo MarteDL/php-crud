@@ -1,7 +1,7 @@
 <?php require "includes/header.php"; ?>
 
-<main>
-    <table style="width:100%">
+<main class="container-fluid  p-3">
+    <table class="col-10 m-5 mx-auto" >
         <tr>
             <th>Firstname</th>
             <th>Lastname</th>
@@ -29,7 +29,6 @@
                         <!-- delete button -->
                         <input type="hidden" name="id" value="<?php echo $teacher->getId() ?>"/>
                         <input type="submit" name="delete" value="Delete" class="btn btn-danger"/>
-                        <button type="submit" name="export_button_teacher">Download File</button>
                     </form>
                     <!-- edit button -->
                     <a href="?page=teachers&edit=<?php echo $teacher->getId() ?>" class="btn btn-primary">Edit teacher</a>
@@ -40,9 +39,11 @@
             <!-- edit button -->
             <td>
                 <a class="btn btn-primary" href="?page=teachers&create=create?>">Create new teacher</a>
+                <button type="submit" name="export_button_teacher">Download File</button>
             </td>
         </tr>
     </table>
+
 
 </main>
 

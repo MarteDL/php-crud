@@ -11,8 +11,8 @@ require "includes/header.php";
 
 ?>
 
-    <main>
-        <table style="width:100%">
+    <main class="container-fluid  p-3">
+        <table class="col-10 m-5 mx-auto" >
         <tr>
             <th>Firstname</th>
             <th>Lastname</th>
@@ -39,7 +39,7 @@ require "includes/header.php";
                         <!-- delete button -->
                         <input type="hidden" name="id" value="<?php echo $student->getId() ?>"/>
                         <input type="submit" name="delete" value="Delete" class="btn btn-danger"/>
-                        <button type="submit" name="export_button_student">Download File</button>
+
                     </form>
                     <!-- edit button -->
                     <a href="?page=students&edit=<?php echo $student->getId() ?>" class="btn btn-primary">Edit student</a>
@@ -50,8 +50,10 @@ require "includes/header.php";
                 <!-- edit button -->
                 <td>
                     <a class="btn btn-primary" href="?page=students&create=create?>">Create new student</a>
+                    <button type="submit" name="export_button_student">Download File</button>
                 </td>
             </tr>
+
         </table>
 
     </main>
