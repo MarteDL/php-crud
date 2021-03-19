@@ -1,7 +1,6 @@
 <?php
 
 declare(strict_types=1);
-session_start();
 
 ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
@@ -19,9 +18,6 @@ require "Controller/HomepageController.php";
 require "Controller/StudentController.php";
 require "Controller/TeacherController.php";
 require "Controller/GroupController.php";
-
-
-$controller = new HomepageController();
 
 //-------------------- please DO NOT REMOVE OR CHANGE -> essential for button functioning -------------------
 if (isset($_GET['page']) && $_GET['page'] === 'students') {
@@ -81,6 +77,9 @@ if (isset($_POST['search_button'])) {
         $controller = new GroupController();
         $controller->checkSavedData();
     }
+}
+
+if (!isset($_GET['page'])){
     $controller = new HomepageController();
     $controller->render();
 }

@@ -55,6 +55,8 @@ class GroupController
     public function goToEditGroup($className): void
     {
         $group = groupLoader::getgroup($className, $this->pdo);
+        $teachers = teacherLoader::getAllUnasignedTeachers($this->pdo);
+
         require 'View/groupEdit.php';
     }
 

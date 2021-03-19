@@ -20,7 +20,7 @@
                         <?php echo $group->getLocation() ?>
                     </td>
                     <td>
-                        <a href="?page=teachers&id=<?php echo $group->getTeacher()->getLastName() . ' ' . $group->getTeacher()->getFirstName() ?>"><?php echo $group->getTeacher()->getLastName() . ' ' . $group->getTeacher()->getFirstName() ?></a>
+                        <a href="?page=teachers&id=<?php echo $group->getTeacher()->getId() ?>"><?php echo $group->getTeacher()->getLastName() . ' ' . $group->getTeacher()->getFirstName() ?></a>
                     </td>
                     <td>
                         <form method="post" style="float: left"><!-- temporary styling-->

@@ -28,8 +28,11 @@ class groupLoader
         $groupsArray = $handle->fetchAll();
 
         $groups = [];
+
+
         foreach ($groupsArray as $group) {
-            $groups[] = new group($group['name'], $group['location'], $group['teacher']);
+            $teacher = teacherLoader::getTeacher($group['teacherID'], $pdo);
+            $groups[] = new group($group['name'], $group['location'], $teacher);
         }
         return $groups;
     }
@@ -83,7 +86,6 @@ class groupLoader
         $handle = $pdo->prepare('INSERT INTO class (name, location, teacherID) VALUES (:name, :location, :teacherID)');
         $handle->bindValue(':name', $group->getName());
         $handle->bindValue(':location', $group->getLocation());
-        $handle->bindValue(':teacherID', $teacher->getId());
         $handle->bindValue(':teacherID', $teacher->getId());
         $handle->execute();
 
