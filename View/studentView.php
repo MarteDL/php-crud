@@ -2,11 +2,11 @@
 require 'includes/header.php';
 ?>
 
-<main class="container-fluid">
+<main class="container-fluid  p-3">
 
 <!--table of detailed overview-->
 <section>
-    <table style="width:100%">
+    <table     class="col-10 m-5 mx-auto" >
         <tr>
             <th>Firstname</th>
             <th>Lastname</th>
@@ -29,7 +29,7 @@ require 'includes/header.php';
                     <input type="submit" name="delete" value="Delete" class="btn btn-danger"/>
                 </form>
                 <!-- edit button -->
-                <a href="?page=students&edit=<?php echo $student->getId() ?>" class="btn btn-primary" >Edit student</a>
+                <a href="?page=students&edit=<?php echo $student->getId() ?>" class="btn btn-secondary" >Edit student</a>
             </td>
         </tr>
     </table>

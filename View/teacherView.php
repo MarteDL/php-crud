@@ -8,10 +8,10 @@ error_reporting(E_ALL);
 require 'includes/header.php';
 ?>
 
-<main>
+<main class="container-fluid  p-3">
     <!--table of detailed overview-->
     <section>
-        <table style="width:100%">
+        <table class="col-10 m-5 mx-auto" style="width:100%">
             <tr>
                 <th>Firstname</th>
                 <th>Lastname</th>

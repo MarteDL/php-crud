@@ -55,7 +55,6 @@ if (isset($_GET['page']) && $_GET['page'] === 'teachers') {
 
 if (isset($_GET['page']) && $_GET['page'] === 'groups') {
     $controller = new GroupController();
-//    $controller->checkEditGroup();
     $controller->checkRemoveGroup();
 
     if (isset($_GET['className'])) {
@@ -74,19 +73,32 @@ if (isset($_GET['page']) && $_GET['page'] === 'groups') {
 if (isset($_POST['search_button'])) {
     $controller = new StudentController();
     $controller->searchStudentTeacher($_POST['search']);
+    $controller = new Studentcontroller();
 } else {
-    if (isset($_GET['saveStudent'])) {
+    if (isset($_POST['saveStudent'])) {
         $controller = new StudentController();
-        $controller->createNewStudent($_GET);
+        $controller->saveData();
     }
-    if (isset($_GET['saveTeacher'])) {
+    if (isset($_POST['saveTeacher'])) {
         $controller = new TeacherController();
-        $controller->createNewTeacher($_GET);
+        $controller->saveData();
     }
-    if (isset($_GET['saveGroup'])) {
+    if (isset($_POST['saveGroup'])) {
         $controller = new GroupController();
-        $controller->createGroup($_GET);
+        $controller->checkSavedData();
     }
+}
+if (isset($_GET['saveStudent'])) {
+    $controller = new StudentController();
+    $controller->createNewStudent($_GET);
+}
+if (isset($_GET['saveTeacher'])) {
+    $controller = new TeacherController();
+    $controller->createNewTeacher($_GET);
+}
+if (isset($_GET['saveGroup'])) {
+    $controller = new GroupController();
+    $controller->createGroup($_GET);
 }
 
 

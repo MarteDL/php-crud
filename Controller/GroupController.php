@@ -72,6 +72,7 @@ class GroupController
         }
     }
 
+//-------------  checks for correct work of buttons -----------------
 
     public function exportingData()
     {
