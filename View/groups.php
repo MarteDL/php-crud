@@ -1,7 +1,7 @@
 <?php require "includes/header.php"; ?>
 
     <main>
-        <table style="width:100%">
+        <table class="table-active">
             <tr>
                 <th>Name</th>
                 <th>Location</th>
@@ -37,7 +37,8 @@
             <tr class="text-center">
                 <!-- create button -->
                 <td>
-                    <a class="btn btn-secondary" href="?page=groups&create=<?php echo $group->getName() ?>">Create new class</a>
+                    <a class="btn btn-primary" href="?page=groups&create=<?php echo $group->getName() ?>">Create new class</a>
+                    <button class="btn btn-primary" type="submit" name="export_button_group">Download File</button>
                 </td>
             </tr>
         </table>

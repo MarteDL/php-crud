@@ -4,24 +4,18 @@ use JetBrains\PhpStorm\Pure;
 
 class student extends user
 {
-    private string $teacher;
+    private teacher|null $teacher;
 
-     #[Pure] public function  __construct(string $lastName, string $firstName, string $email, group $group, int $id = 0, $teacher = null) {
-         parent::__construct($lastName, $firstName, $email, $group, $id);
-
-         if ($teacher !== null) {
-             $this->teacher = $teacher;
-         }
-     }
-
-     //@todo return Teacher object
-    public function getTeacher(): string
+    #[Pure] public function __construct(string $lastName, string $firstName, string $email, group $group, int $id = 0, teacher|null $teacher = null)
     {
-        return $this->teacher;
+        parent::__construct($lastName, $firstName, $email, $group, $id);
+        $this->teacher = $teacher;
+
     }
 
-    public function setTeacher(string $teacher): void
+    //@todo return Teacher object
+    public function getTeacher(): teacher
     {
-        $this->teacher = $teacher;
+        return $this->teacher;
     }
 }

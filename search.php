@@ -43,11 +43,11 @@ require 'View/includes/header.php';
 if (count($results) > 0) {
     foreach ($results as $result) {
         echo "<div class='search_results'><p>".implode(', ', $result)."</p></div>";
-
             }
         } else {
             echo "No matching results found";
         } ?>
+<!--<a href="?page=students&id=<?php //echo $results['studentID']?>-->
 
 </body>
 

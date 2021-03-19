@@ -41,10 +41,17 @@ require "includes/header.php";
                         <input type="submit" name="delete" value="Delete" class="btn btn-danger"/>
                     </form>
                     <!-- edit button -->
-                    <a href="?page=students&edit=<?php echo $student->getId() ?>" class="btn btn-primary">Edit student</a>
+                    <a href="?page=students&edit=<?php echo $student->getId() ?>" class="btn btn-secondary">Edit student</a>
                 </td>
             </tr>
         <?php endforeach; ?>
+            <tr class="text-center">
+                <!-- edit button -->
+                <td>
+                    <a class="btn btn-primary" href="?page=students&create=create?>">Create new student</a>
+                    <button class="btn btn-primary" type="submit" name="export_button_student">Download File</button>
+                </td>
+            </tr>
         </table>
 
     </main>

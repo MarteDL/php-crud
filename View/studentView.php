@@ -6,7 +6,7 @@ require 'includes/header.php';
 
 <!--table of detailed overview-->
 <section>
-    <table >
+    <table style="width:100%">
         <tr>
             <th>Firstname</th>
             <th>Lastname</th>
@@ -20,7 +20,7 @@ require 'includes/header.php';
             <td><?php echo $student->getLastname()?></td>
             <td><?php echo $student->getEmail() ?></td>
             <td><a href="?page=groups&className=<?php echo $student->getGroup()->getName() ?>"><?php echo $student->getGroup()->getName() ?></a></td>
-            <td><a href="?page=teachers&id=<?php echo $student->getTeacher()->getId() ?>"><?php echo $student->getTeacher() ?></a></td>
+            <td><a href="?page=teachers&id=<?php echo $student->getTeacher()->getId() ?>"><?php echo $student->getTeacher()->getLastName().' '.$student->getTeacher()->getFirstName() ?></a></td>
             <td>
             <td>
                 <form method="post" ><!-- temporary styling-->
@@ -29,7 +29,7 @@ require 'includes/header.php';
                     <input type="submit" name="delete" value="Delete" class="btn btn-danger"/>
                 </form>
                 <!-- edit button -->
-                <a href="?page=students&edit=<?php echo $student->getId() ?>" class="btn btn-primary" >Edit student</a>
+                <a href="?page=students&edit=<?php echo $student->getId() ?>" class="btn btn-secondary" >Edit student</a>
             </td>
         </tr>
     </table>

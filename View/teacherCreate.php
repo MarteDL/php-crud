@@ -1,52 +1,43 @@
 <?php
-
-declare(strict_types=1);
-
-ini_set('display_errors', '1');
-ini_set('display_startup_errors', '1');
-error_reporting(E_ALL);
-?>
-
-<?php
 require "includes/header.php"
 ?>
 
-    <main class="container-fluid">
-        <form method="get" action="?page=groups">
-            <div class="form-row mt-2">
-                <div class="col">
-                    <label for="firstname"></label>
-                    <input type="text" name="name" id="firstname" class="form-control" placeholder="Firstname">
+<main class="container-fluid">
+    <form method="get" action="?page=teachers">
+        <div class="form-row mt-2">
+            <div class="col">
+                <label for="firstName"></label>
+                <input type="text" name="firstName" id="firstname" class="form-control" placeholder="Firstname">
 
-                </div>
-                <div class="col">
-                    <label for="lastname"></label>
-                    <input type="text" name="location" id="lastname" class="form-control" placeholder="Lastname">
+            </div>
+            <div class="col">
+                <label for="lastName"></label>
+                <input type="text" name="lastName" id="lastname" class="form-control" placeholder="Lastname">
 
-                </div>
-                <div class="col">
-                    <label for="email"></label>
-                    <input type="text" name="location" id="email" class="form-control" placeholder="Email">
+            </div>
+            <div class="col">
+                <label for="email"></label>
+                <input type="text" name="email" id="email" class="form-control" placeholder="Email">
 
-                </div>
-                <div class="col">
-                    <label for="teacher">Classes</label>
-                    <select name="className">
-                        <?php
+            </div>
+            <div class="col">
+                <label for="classes">Class</label>
+                <select name="className" id="classes">
+                    <?php
                         /** @var group[] $groups */
                         /** @var student $student */
                         foreach ($groups as $group):
                             $groupName = $group->getName();
                             ?>
-                            <option value="<?php echo $groupName ?>"><?php echo $groupName ?></option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
-                <div class="mt-2">
-                    <input type="submit" name="teacherSave" value="Save" class="btn btn-danger"/>
-                </div>
+                    <option value="<?php echo $groupName ?>"><?php echo $groupName ?></option>
+                    <?php endforeach; ?>
+                </select>
             </div>
-        </form>
-    </main>
+            <div class="mt-2">
+                <input type="submit" name="saveTeacher" value="Save" class="btn btn-danger"/>
+            </div>
+        </div>
+    </form>
+</main>
 
 <?php require "includes/footer.php" ?>

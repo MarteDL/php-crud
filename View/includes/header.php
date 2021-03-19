@@ -14,8 +14,8 @@
     <meta property="og:url" content="../img/logo.jpeg">
     <meta property="og:image" content="img/logo.jpeg">
 
-    <link rel="icon" type="imgage/png" href="img/logo.png">
-    <link rel="apple-touch-icon" href="img/logo.png">
+    <link rel="icon" type="imgage/png" href="../../img/logo-SoM.png">
+    <link rel="apple-touch-icon" href="../../img/logo-SoM.png">
 
 
     <link rel="stylesheet" href="../../css/normalize.css">

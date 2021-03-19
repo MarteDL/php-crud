@@ -4,7 +4,7 @@
 
     <!--table of detailed overview-->
     <section>
-        <table style="width:100%">
+        <table >
             <tr>
                 <th>Name</th>
                 <th>Location</th>
@@ -25,7 +25,7 @@
                     </form>
                     <!-- edit button -->
                 <td>
-                    <a href="?page=groups&edit=<?php echo $group->getName() ?>" class="btn btn-primary">Edit Group</a>
+                    <a href="?page=groups&edit=<?php echo $group->getName() ?>" class="btn btn-secondary">Edit Group</a>
                 </td>
                 </td>
             </tr>
