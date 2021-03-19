@@ -1,7 +1,7 @@
 <?php require "includes/header.php"; ?>
 
-<main>
-    <table style="width:100%">
+<main class="container-fluid  p-3">
+    <table class="col-10 m-5 mx-auto" >
         <tr>
             <th>Firstname</th>
             <th>Lastname</th>
@@ -43,6 +43,7 @@
             </td>
         </tr>
     </table>
+
 
 </main>
 

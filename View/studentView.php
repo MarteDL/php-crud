@@ -2,11 +2,11 @@
 require 'includes/header.php';
 ?>
 
-<main class="container-fluid">
+<main class="container-fluid  p-3">
 
 <!--table of detailed overview-->
 <section>
-    <table style="width:100%">
+    <table     class="col-10 m-5 mx-auto" >
         <tr>
             <th>Firstname</th>
             <th>Lastname</th>

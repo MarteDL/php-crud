@@ -2,9 +2,9 @@
 require "includes/header.php"
 ?>
 
-<main>
+<main class="container-fluid  p-3">
     <!------------------- edit form ---------------------->
-    <form method="get">
+    <form class="col-10 m-5 mx-auto" style="width:100%" method="get">
         <label for="name">Name </label>
             <input type="text" name="name" id="name" value="<?php echo $group->getName() ?>" readonly>
         <label for="location">Location </label>

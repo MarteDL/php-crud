@@ -1,10 +1,10 @@
 <?php require 'includes/header.php'; ?>
 
-<main>
+<main class="container-fluid  p-3">
 
     <!--table of detailed overview-->
     <section>
-        <table >
+        <table class="col-10 m-5 mx-auto" >
             <tr>
                 <th>Name</th>
                 <th>Location</th>

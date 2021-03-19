@@ -1,7 +1,7 @@
 <?php require "includes/header.php"; ?>
 
-    <main>
-        <table class="table-active">
+    <main class="container-fluid  p-3">
+        <table  class="col-10 m-5 mx-auto" style="width:100%" style="width:100%">
             <tr>
                 <th>Name</th>
                 <th>Location</th>
@@ -29,7 +29,7 @@
                             <input type="submit" name="delete" value="Delete" class="btn btn-danger"/>
                         </form>
                         <!-- edit button -->
-                        <a href="?page=groups&edit=<?php echo $group->getName() ?>" class="btn btn-secondary">Edit
+                        <a href="?page=groups&edit=<?php echo $group->getName() ?>" class="btn btn-primary">Edit
                             class</a>
                     </td>
                 </tr>
