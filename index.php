@@ -21,6 +21,9 @@ require "Controller/GroupController.php";
 
 
 //-------------------- please DO NOT REMOVE OR CHANGE -> essential for button functioning -------------------
+
+
+
 if (isset($_GET['page']) && $_GET['page'] === 'students') {
     $controller = new StudentController();
     $controller->checkEditStudent();
@@ -44,7 +47,7 @@ if (isset($_GET['page']) && $_GET['page'] === 'teachers') {
     if (isset($_GET['id'])) {
         $controller->showTeacherInfo((int)$_GET['id']);
     } else if (isset($_GET['create'])) {
-        $controller->goToCreateTeacher($_GET);
+        $controller->goToCreateTeacher();
     } else {
         $controller->getAllTeachersInfo();
     }
@@ -52,16 +55,13 @@ if (isset($_GET['page']) && $_GET['page'] === 'teachers') {
 
 if (isset($_GET['page']) && $_GET['page'] === 'groups') {
     $controller = new GroupController();
+    $controller->checkRemoveGroup();
 
     if (isset($_GET['className'])) {
         $controller->showGroupInfo((string)$_GET['className']);
     } // if URL shows EDIT -> shows EDIT page with a specific student -> checkEditStudent()
     else if (isset($_GET['edit'])) {
-        if (isset($_GET['save'])) {
-            $controller->editGroup($_GET);
-        } else {
             $controller->goToEditGroup($_GET['edit']);
-        }
     } else if (isset($_GET['create'])) {
         $controller->goToCreateGroup();
     } // if URL doesnt show any ID nor EDIT -> shows all students
@@ -100,26 +100,20 @@ if (isset($_GET['saveGroup'])) {
     $controller = new GroupController();
     $controller->createGroup($_GET);
 }
-//-------Jens code-to be checked--------------
-//else {
-//    $controller->render();
-//}
-
-//if (isset($_POST['export_button_student'])){
-//    $controller = new StudentController();
-//    $controller->exportingData();
-//}
-//if (isset($_POST['export_button_teacher'])){
-//    $controller = new StudentController();
-//    $controller->exportingData();
-//}
-//if (isset($_POST['export_button_group'])){
-//    $controller = new GroupController();
- //  $controller->exportingData();
-//}
 
 
-
+if (isset($_POST['export_button_student'])){
+    $controller = new StudentController();
+    $controller->exportingData();
+}
+if (isset($_POST['export_button_teacher'])){
+    $controller = new StudentController();
+    $controller->exportingData();
+}
+if (isset($_POST['export_button_group'])){
+    $controller = new StudentController();
+    $controller->exportingData();
+}
 
 if (empty($_GET)) {
     $controller = new HomepageController();

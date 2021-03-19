@@ -87,7 +87,7 @@ class StudentController
         if (isset($_POST['delete'])) {
             studentLoader::deleteStudent($_POST['id'], $this->pdo);
             //require 'View/studentView.php';
-         }
+        }
     }
 
     public function exportingData(){

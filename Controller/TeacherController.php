@@ -11,16 +11,10 @@ class TeacherController
         $connection = new DbConnect();
         $this->pdo = $connection->connect();
     }
-    public function showTeacherInfo($teacherName) : void
+    public function showTeacherInfo($teacherId) : void
     {
-        $teacher = teacherLoader::getTeacher($teacherName, $this->pdo);
+        $teacher = teacherLoader::getTeacher($teacherId, $this->pdo);
         require 'View/teacherView.php';
-    }
-
-    public function getTeacherInfo(int $id): teacher
-    {
-        $teacher = teacherLoader::getTeacher($id, $this->pdo);
-        require 'View/teacherEdit.php';
     }
 
     public function getAllTeachersInfo(): void
@@ -29,7 +23,7 @@ class TeacherController
         require 'View/teachers.php';
     }
 
-    public function goToCreateTeacher($GET): void
+    public function goToCreateTeacher(): void
     {
         $groups = groupLoader::getAllUnasignedGroups($this->pdo);
         require 'View/teacherCreate.php';
@@ -38,7 +32,13 @@ class TeacherController
 
     #[NoReturn] public function createNewTeacher($GET): void
     {
-        $group = groupLoader::getGroup($GET['className'], $this->pdo);
+        if (!empty($GET['className'])) {
+            $group = groupLoader::getGroup($GET['className'], $this->pdo);
+        }
+        else {
+            $group = null;
+        }
+
         $teacher = new teacher($GET['lastName'],$GET['firstName'], $GET['email'], $group, teacherLoader::getAllStudentsOfGroup($GET['className'],$this->pdo));
 
         teacherLoader::saveTeacher($teacher, $this->pdo);
@@ -47,7 +47,7 @@ class TeacherController
         exit;
 
     }
-//should the edit also conclude delete->Teacher?
+
     public function editTeacher($id): void
     {
         $teacher = teacherLoader::getTeacher($_GET['id']);
@@ -62,20 +62,11 @@ class TeacherController
     }
 
 
-//-------------  checks for correct work of buttons DO NOT REMOVE NOR CHANGE!!!-----------------
-
-//check if data were SAVE
-    public function saveData(): void
-    {
-        teacherLoader::saveTeacher(new teacher($_POST['lastName'],$_POST['firstName'], $_POST['email'], new group($_POST['className']), teacherLoader::getAllStudentsOfGroup($_POST['className'],$this->pdo),$_POST['id']),$this->pdo);
-    }
-
-//checking if there is an edit parameter ->edit page
     public function checkEditTeacher(): void
     {
         if (isset($_GET['edit'])) {
             $teacher = teacherLoader::getTeacher($_GET['edit'], $this->pdo);
-            $allGroups=groupLoader::getAllAssignedGroups($this->pdo);
+            $allGroups = groupLoader::getAllAssignedGroups($this->pdo);
             require 'View/teacherEdit.php';
         }
     }

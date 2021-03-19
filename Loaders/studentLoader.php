@@ -85,9 +85,7 @@ class studentLoader
         $handle = $pdo->prepare("SELECT studentID, firstName , lastName FROM student WHERE (student.firstName LIKE :string OR student.lastName LIKE :string) UNION SELECT teacherID, firstName , lastName FROM teacher WHERE (teacher.firstName LIKE :string OR teacher.lastName LIKE :string);");
         $handle->bindValue(':string', '%'.$search.'%');
         $handle->execute();
-        $results = $handle->fetchAll();
-        return $results;
-
+        return $handle->fetchAll();
     }
 
 }

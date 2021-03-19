@@ -57,7 +57,7 @@ class user
         $this->lastName = $lastName;
     }
 
-    public function getGroup(): group
+    public function getGroup(): group|null
     {
         return $this->group;
     }
