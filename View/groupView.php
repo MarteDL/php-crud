@@ -15,7 +15,7 @@
                 <td><?php echo $group->getName() ?></td>
                 <td><?php echo $group->getLocation() ?></td>
                 <td>
-                    <a href="?page=teachers&id=<?php echo $group->getTeacher() ?>"><?php echo $group->getTeacher() ?></a>
+                    <a href="?page=teachers&id=<?php echo $group->getTeacher()->getLastName().' '.$group->getTeacher()->getFirstName() ?>"><?php echo $group->getTeacher()->getLastName().' '.$group->getTeacher()->getFirstName() ?></a>
                 </td>
                 <td>
                 <td>
@@ -37,8 +37,7 @@
             <?php foreach ($group->getStudents() as $student) : ?>
                 <tr>
                     <td>
-                        <a href="?page=students&id=<?php echo $student->getId() ?>"
-                           class=""><?php echo $student->getFirstname().' '.$student->getlastname() ?>
+                        <a href="?page=students&id=<?php echo $student->getId() ?>"><?php echo $student->getFirstname().' '.$student->getlastname() ?>
                     </td>
                 </tr>
             <?php endforeach; ?>

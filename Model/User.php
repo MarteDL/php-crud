@@ -3,7 +3,7 @@
 
 class user
 {
-    private int|null $id;
+    private int $id;
     private string $lastName;
     private string $firstName;
     private string $email;

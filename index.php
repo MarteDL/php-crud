@@ -1,7 +1,6 @@
 <?php
 
 declare(strict_types=1);
-session_start();
 
 ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
@@ -42,6 +41,27 @@ if (isset($_GET['page']) && $_GET['page'] === 'teachers') {
         $controller->getAllTeachersInfo();
     }
 }
+
+if (isset($_GET['page']) && $_GET['page'] === 'groups') {
+    $controller = new GroupController();
+
+    if (isset($_GET['className'])) {
+        $controller->showGroupInfo((string)$_GET['className']);
+    } // if URL shows EDIT -> shows EDIT page with a specific student -> checkEditStudent()
+    else if (isset($_GET['edit'])) {
+        $controller->goToEditGroup($_GET['edit']);
+
+        if (isset($_POST['save'])) {
+            $controller->editGroup($_POST, $_GET['edit']);
+        }
+    } else if (isset($_GET['create'])) {
+        $controller->goToCreateGroup();
+    } // if URL doesnt show any ID nor EDIT -> shows all students
+    else {
+        $controller->getAllGroupsInfo();
+    }
+}
+
 if (isset($_POST['search_button'])) {
     $controller->searchStudentTeacher($_POST['search']);
 } else {
@@ -57,30 +77,9 @@ if (isset($_POST['search_button'])) {
         $controller = new GroupController();
         $controller->checkSavedData();
     }
+}
+
+if (!isset($_GET['page'])){
     $controller = new HomepageController();
     $controller->render();
 }
-
-
-//------------------------------------------------------------------------ group conditions -to be edited
-if (isset($_GET['page']) && $_GET['page'] === 'groups') {
-    $controller = new GroupController();
-
-    if (isset($_GET['className'])) {
-        $controller->showGroupInfo((string)$_GET['className']);
-    } else if (isset($_GET['edit'])) {
-        var_dump($_GET);
-        $controller->editGroup($_GET['edit']);
-    }
-    else {
-        $controller->getAllGroupsInfo();
-    }
-
-    $controller->checkSavedData();
-    $controller->checkDeletedData();
-    $controller->checkEditGroup();
-
-}
-
-
-
