@@ -67,12 +67,18 @@ class TeacherController
             require 'View/teacherEdit.php';
         }
     }
+
+   
     public function checkRemoveTeacher(): void
     {
         if (isset($_POST['delete'])) {
             teacherLoader::deleteTeacher($_POST['id'], $this->pdo);
             //require 'View/studentView.php';
         }
+
     }
+  public function exportingData(){
+        export::exportCSV_teacher($this->pdo);
+  }
 }
 

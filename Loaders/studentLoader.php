@@ -77,17 +77,15 @@ class studentLoader
     }
 
 //----------------------------------------Search function--------------------------------------------------------------
-//not working properly
+
     public static function searchName($search, PDO $pdo): array
     {
-        $handle = $pdo->prepare("SELECT s.firstName as studentFirstName, s.lastName as studentlastName, t.firstName, t.lastName FROM student s inner join teacher t on s. className = t.className WHERE s.firstName LIKE :string OR t.firstName LIKE :string OR s.lastName LIKE :string OR t.lastName LIKE :string");
+        $handle = $pdo->prepare("SELECT studentID, firstName , lastName FROM student WHERE (student.firstName LIKE :string OR student.lastName LIKE :string) UNION SELECT teacherID, firstName , lastName FROM teacher WHERE (teacher.firstName LIKE :string OR teacher.lastName LIKE :string);");
         $handle->bindValue(':string', '%'.$search.'%');
         $handle->execute();
         $results = $handle->fetchAll();
         return $results;
 
     }
-    //$handle->bindValue(':string', '%'.$search.'%');
-//SELECT s.*, t.* FROM student s inner join teacher t on s. className = t.className WHERE s.firstName LIKE :string OR t.firstName LIKE :string OR s.lastName LIKE :string OR t.lastName LIKE :string ORDER BY s.lastName, t.lastName
-//SELECT s.*, t.* FROM student s inner join teacher t on s. className = t.className WHERE s.firstName LIKE '%$search%' OR t.firstName LIKE '%$search%' OR s.lastName LIKE '%$search%' OR t.lastName LIKE '%$search%' ORDER BY t.lastName, s.lastName
+
 }

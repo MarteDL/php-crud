@@ -83,12 +83,15 @@ class GroupController
 //        }
 //    }
 
-//checking if there is an edit parameter ->edit page
+//------------------ MARTE check-------------------------
+
 //    public function checkEditGroup(): void
 //    {
 //        if (isset($_GET['edit'])) {
 //            $group = groupLoader::getgroup($_GET['edit'], $this->pdo);
 //            require 'View/groupEdit.php';
 //        }
+   public function exportingData(){
+        export::exportCSV_group($this->pdo);
 //    }
-}
+

@@ -78,6 +78,27 @@ if (isset($_POST['search_button'])) {
         $controller->checkSavedData();
     }
 }
+//-------Jens code-to be checked--------------
+//else {
+//    $controller->render();
+//}
+
+//if (isset($_POST['export_button_student'])){
+//    $controller = new StudentController();
+//    $controller->exportingData();
+//}
+//if (isset($_POST['export_button_teacher'])){
+//    $controller = new StudentController();
+//    $controller->exportingData();
+//}
+//if (isset($_POST['export_button_group'])){
+//    $controller = new StudentController();
+//    $controller->exportingData();
+//}
+
+
+
+
 
 if (!isset($_GET['page'])){
     $controller = new HomepageController();
