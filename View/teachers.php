@@ -22,7 +22,7 @@
                        class=""><?php echo $teacher->getlastname() ?>
                 </td>
                 <td>
-                    <a href="?page=teachers&className=<?php echo $teacher->getGroup()->getName() ?>"><?php echo $teacher->getGroup()->getName() ?></a>
+                    <a href="?page=groups&className=<?php echo $teacher->getGroup()->getName() ?>"><?php echo $teacher->getGroup()->getName() ?></a>
                 </td>
                 <td>
                     <form method="post" style="float: left"><!-- temporary styling-->

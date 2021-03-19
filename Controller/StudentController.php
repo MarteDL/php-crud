@@ -30,7 +30,7 @@ class StudentController
 
     public function createNewStudent(): void
     {
-        $student = new teacher($_POST['lastName'], $_POST['firstName'], $_POST['email'], new group($_POST['className']));
+        $student = new student($_POST['lastName'], $_POST['firstName'], $_POST['email'], new group($_POST['className']));
 
         studentLoader::saveStudent($student, $this->pdo);
         require 'View/studentCreate.php';
@@ -48,13 +48,7 @@ class StudentController
         require 'View/studentEdit.php';
     }
 
-    public function removeStudent(): void
-    {
-        studentLoader::deleteStudent($_GET['id'], $this->pdo);
-        require 'View/studentView.php';
-    }
-
-//-------------  checks for correct work of buttons -----------------
+//-------------  checks for correct work of buttons DO NOT REMOVE NOR CHANGE!!!------------------
 
 //check if data were SAVE
     public function saveData(): void
@@ -69,6 +63,13 @@ class StudentController
             $student = studentLoader::getStudent($_GET['edit'], $this->pdo);
             $allGroups=groupLoader::getAllGroups($this->pdo);
             require 'View/studentEdit.php';
+        }
+    }
+    public function checkRemoveStudent(): void
+    {
+        if (isset($_POST['delete'])) {
+            studentLoader::deleteStudent($_POST['id'], $this->pdo);
+            //require 'View/studentView.php';
         }
     }
 }

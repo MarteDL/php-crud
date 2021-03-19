@@ -11,7 +11,7 @@ class teacherLoader
 
         $teacherArray = $handle->fetch(PDO::FETCH_ASSOC);
 
-        return new teacher($teacherArray['lastName'], $teacherArray['firstName'], $teacherArray['email'], new group($teacherArray['className']), $teacherArray['teacherID'], $teacherArray['student']);
+        return new teacher($teacherArray['lastName'], $teacherArray['firstName'], $teacherArray['email'], new group($teacherArray['className']),self::getAllStudentsOfGroup($teacherArray['className'],$pdo), $teacherArray['teacherID']);
     }
     /**
      * @param PDO $pdo
@@ -24,36 +24,36 @@ class teacherLoader
 
         $teachers = [];
         foreach ($teachersArray as $teacher) {
-            $teachers[] = new teacher($teacher['lastName'], $teacher['firstName'], $teacher['email'], new group($teacher['className']), $teacher['teacherID']);
+            $teachers[] = new teacher($teacher['lastName'], $teacher['firstName'], $teacher['email'], new group($teacher['className']), self::getAllStudentsOfGroup($teacher['className'],$pdo),  $teacher['teacherID']);
         }
         return $teachers;
     }
 
     /**
      * @param PDO $pdo
-     * @return teacher[]
+     * @return student[]
      */
-    public static function getAllTeachersOfGroup(string $className, PDO $pdo): array {
-        $handle = $pdo->prepare('SELECT * FROM teacher where className = :className order by lastname, firstname');
+    public static function getAllStudentsOfGroup(string $className, PDO $pdo): array {
+        $handle = $pdo->prepare('SELECT * FROM student where className = :className order by lastname, firstname');
         $handle->bindValue(':className', $className);
         $handle->execute();
 
-        $teachersArray = $handle->fetchAll(PDO::FETCH_ASSOC);
+        $studentsArray = $handle->fetchAll(PDO::FETCH_ASSOC);
 
-        $teachers = [];
+        $students = [];
 
-        foreach ($teachersArray as $teacher) {
-            $teachers[] = new teacher($teacher['lastName'], $teacher['firstName'], $teacher['email'], new group($teacher['className']), $teacher['studentID']);
+        foreach ($studentsArray as $student) {
+            $students[] = new student($student['lastName'], $student['firstName'], $student['email'], new group($student['className']), $student['studentID']);
         }
 
-        return $teachers;
+        return $students;
     }
 
 //------------------------------------------- teacherView update/delete button ------------------------------------------------
-    public static function deleteTeacher(teacher $teacher, PDO $pdo): void
+    public static function deleteTeacher(string $id, PDO $pdo): void
     {
         $handle = $pdo->prepare('DELETE FROM teacher WHERE teacherID = :id');
-        $handle->bindValue(':id', $teacher->getId());
+        $handle->bindValue(':id', $id);
         $handle->execute();
     }
 

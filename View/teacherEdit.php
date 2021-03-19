@@ -10,8 +10,7 @@ require "includes/header.php"
                 <th>Firstname</th>
                 <th>Lastname</th>
                 <th>Email</th>
-                <th>Class name</th>
-                <th>Students</th>
+                <th>Assigned students</th>
                 <th></th>
             </tr>
             <tr>
@@ -20,24 +19,21 @@ require "includes/header.php"
                     $teacher->getFirstname() ?>"/></td>
                 <td><input type="text" name="lastName" value="<?php echo $teacher->getLastname() ?>"/></td>
                 <td><input type="text" name="email" value="<?php echo $teacher->getEmail() ?>"/></td>
-                <!-- creates whole list of class names-->
+
+
                 <td>
-                    <select name="className">
-                        <?php
-                        /** @var group[] $allGroups */
-                        foreach ($allGroups as $group):
-                            $groupName = $group->getName();
-                            ?>
-                            <option value="<?php echo $groupName ?>" <?php if ($groupName === $teacher->getGroup()->getName()) {
-                                echo 'selected';
-                            } ?>><?php echo $groupName ?></option>
-                        <?php endforeach; ?>
-                    </select>
+                    <?php
+                    foreach ($teacher->getStudents() as $student): ?>
+                        <a href="?page=students&id=<?php echo $student->getId() ?>"
+                           ><?php echo $student->getFirstname(), $student->getlastname(); ?></a>
+                        <br>
+                    <?php endforeach; ?>
                 </td>
                 <td>
                     <form method="post" action="../index.php">
                         <!--  EDIT - save button -->
                         <input type="hidden" name="id" value="<?php echo $teacher->getId() ?>"/>
+                        <input type="hidden" name="className" value="<?php echo $teacher->getGroup()->getName() ?>">
                         <input type="submit" name="saveTeacher" value="Save" class="btn btn-danger"/>
                     </form>
                 </td>

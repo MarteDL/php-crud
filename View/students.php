@@ -24,15 +24,15 @@ require "includes/header.php";
         foreach ($allStudents as $student): ?>
             <tr>
                 <td>
-                    <a href="index.php?id=<?php echo $student->getId() ?>"
+                    <a href="?page=students&id=<?php echo $student->getId() ?>"
                        class=""><?php echo $student->getFirstname() ?>
                 </td>
                 <td>
-                    <a href="index.php?id=<?php echo $student->getId() ?>"
+                    <a href="?page=students&id=<?php echo $student->getId() ?>"
                        class=""><?php echo $student->getlastname() ?>
                 </td>
                 <td>
-                    <a href="classView.php?className=<?php echo $student->getGroup()->getName() ?>"><?php echo $student->getGroup()->getName() ?></a>
+                    <a href="?page=groups&className=<?php echo $student->getGroup()->getName() ?>"><?php echo $student->getGroup()->getName() ?></a>
                 </td>
                 <td>
                     <form method="post" style="float: left"><!-- temporary styling-->
