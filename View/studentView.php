@@ -23,7 +23,7 @@ require 'includes/footer.php';
             <th></th>
         </tr>
         <tr>
-            <td><?php echo $student->getFirstname() ?></td>
+            <td><?php echo /** @var student $student */ $student->getFirstname() ?></td>
             <td><?php echo $student->getLastname()?></td>
             <td><?php echo $student->getEmail() ?></td>
             <td><a href="classView.php?className=<?php echo $student->getGroup()->getName() ?>"><?php echo $student->getGroup()->getName() ?></a></td>

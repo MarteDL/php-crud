@@ -1,5 +1,12 @@
+<?php
+declare(strict_types=1);
 
-<?php require 'includes/header.php'; ?>
+ini_set('display_errors', '1');
+ini_set('display_startup_errors', '1');
+error_reporting(E_ALL);
+
+require 'includes/header.php';
+?>
 
 <main>
     <!--table of detailed overview-->
@@ -14,37 +21,29 @@
                 <th></th>
             </tr>
             <tr>
-                <td><?php echo $teacher->getFirstname() ?></td>
+                <td><?php echo /** @var teacher $teacher */
+                    $teacher->getFirstname() ?></td>
                 <td><?php echo $teacher->getLastname() ?></td>
                 <td><?php echo $teacher->getEmail() ?></td>
                 <td>
                     <a href="?page=groups&className=<?php echo $teacher->getGroup()->getName() ?>"><?php echo $teacher->getGroup()->getName() ?></a>
                 </td>
-                <td><div class="dropdown show">
-                        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Assigned students
-                        </a>
-
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                            <?php
-                            foreach ($teacher->getAllStudentsOfGroup() as $student): ?>
-                            <a href="?page=students&id=<?php echo $student->getId() ?>"
-                               class="dropdown-item"><?php echo $student->getFirstname().$student->getlastname() ; ?>
-                            <?php endforeach; ?>
-                        </div>
-                    </div>
+                <td>
+                    <?php
+                    foreach ($teacher->getStudents() as $student): ?>
+                        <a href="?page=students&id=<?php echo $student->getId() ?>"
+                           ><?php echo $student->getFirstname(), $student->getlastname(); ?></a>
+                        <br>
+                    <?php endforeach; ?>
                 </td>
                 <td>
-                <td>
                     <!-- edit button -->
-                    <a href="?page=students&edit=<?php echo $teacher->getId() ?>" class="btn btn-primary">Edit
-                        student</a>
+                    <a href="?page=teachers&edit=<?php echo $teacher->getId() ?>" class="btn btn-secondary">Edit teacher</a>
                     <form method="post"><!-- temporary styling-->
                         <!-- delete button -->
                         <input type="hidden" name="id" value="<?php echo $teacher->getId() ?>"/>
                         <input type="submit" name="delete" value="Delete" class="btn btn-danger"/>
                     </form>
-                </td>
                 </td>
             </tr>
         </table>

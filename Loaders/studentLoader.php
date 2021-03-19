@@ -3,7 +3,7 @@
 
 class studentLoader
 {
-    public static function getStudent(int $id, PDO $pdo): student
+    public static function getStudent(int $id, PDO $pdo) : student
     {
         $handle = $pdo->prepare('SELECT s.studentID, s.firstName, s.email, s.className, s.lastName, concat(t.lastName, " ", t.firstName) teacher FROM student s LEFT JOIN teacher t on s.className = t.className WHERE studentId = :id');
         $handle->bindValue(':id', $id);
@@ -11,12 +11,12 @@ class studentLoader
 
         $studentArray = $handle->fetch(PDO::FETCH_ASSOC);
 
-        return new teacher($studentArray['lastName'], $studentArray['firstName'], $studentArray['email'], new group($studentArray['className']), $studentArray['studentID'], $studentArray['teacher']);
+        return new student($studentArray['lastName'], $studentArray['firstName'], $studentArray['email'], new group($studentArray['className']), $studentArray['studentID'], $studentArray['teacher']);
     }
 
     /**
      * @param PDO $pdo
-     * @return teacher[]
+     * @return student[]
      */
     public static function getAllStudents(PDO $pdo): array
     {
@@ -25,14 +25,14 @@ class studentLoader
 
         $students = [];
         foreach ($studentsArray as $student) {
-            $students[] = new teacher($student['lastName'], $student['firstName'], $student['email'], new group($student['className']), $student['studentID']);
+            $students[] = new student($student['lastName'], $student['firstName'], $student['email'], new group($student['className']), $student['studentID']);
         }
         return $students;
     }
 
     /**
      * @param PDO $pdo
-     * @return teacher[]
+     * @return student[]
      */
     public static function getAllStudentsOfGroup(string $className, PDO $pdo): array {
         $handle = $pdo->prepare('SELECT * FROM student where className = :className order by lastname, firstname');
@@ -44,28 +44,27 @@ class studentLoader
         $students = [];
 
         foreach ($studentsArray as $student) {
-            $students[] = new teacher($student['lastName'], $student['firstName'], $student['email'], new group($student['className']), $student['studentID']);
+            $students[] = new student($student['lastName'], $student['firstName'], $student['email'], new group($student['className']), $student['studentID']);
         }
 
         return $students;
     }
 
 //------------------------------------------- studentView update/delete button ------------------------------------------------
-    public static function deleteStudent(teacher $student, PDO $pdo): void
+    public static function deleteStudent(string $id, PDO $pdo): void
     {
         $handle = $pdo->prepare('DELETE FROM student WHERE studentID = :id');
-        $handle->bindValue(':id', $student->getId());
+        $handle->bindValue(':id', $id);
         $handle->execute();
     }
 
 //updated data
-
-    public static function saveStudent(teacher $student, PDO $pdo) : void
+    public static function saveStudent(student $student, PDO $pdo) : void
     {
         if($student->getId() !== null) {
             $handle = $pdo->prepare('UPDATE student SET firstname=:firstname, lastname=:lastname, email=:email, classname=:classname WHERE studentID = :id'); //add teacher parameter
             $handle->bindValue(':id', $student->getId());
-        } else { //insert
+        }else { //insert
             $handle = $pdo->prepare('INSERT INTO student (firstname, lastname, email, classname) VALUES (:firstname, :lastname, :email, :classname)'); //add teacher parameter
         }
 

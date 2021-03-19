@@ -3,21 +3,19 @@
 
 class user
 {
-    private int $id;
+    private int|null $id;
     private string $lastName;
     private string $firstName;
     private string $email;
-    private group $group;
+    private group|null $group;
 
-    public function __construct(string $lastName, string $firstName, string $email, group $group, int $id = 0) {
+    public function __construct(string $lastName, string $firstName, string $email, group|null $group, int $id = null) {
         $this->lastName = $lastName;
         $this->firstName = $firstName;
         $this->email = $email;
         $this->group = $group;
+        $this->id = $id;
 
-        if ($id !== 0) {
-            $this->id = $id;
-        }
     }
 
     public function getId():? int

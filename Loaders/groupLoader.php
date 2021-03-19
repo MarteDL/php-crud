@@ -1,6 +1,7 @@
 <?php
 
 
+
 class groupLoader
 {
 
@@ -42,8 +43,8 @@ FROM class c LEFT JOIN teacher t on c.name = t.className ORDER BY name');
         $handle->execute();
 
         $teacherArray = $handle->fetch(PDO::FETCH_ASSOC);
-
-        return new teacher($teacherArray['lastName'], $teacherArray['firstName'], $teacherArray['email'], new group($teacherArray['className']), $teacherArray['teacherID']);
+//do not delete this part -> related to teacherView!!!!!!!!!!!!!!!!!!!!!!!!
+        return new teacher($teacherArray['lastName'], $teacherArray['firstName'], $teacherArray['email'], new group($teacherArray['className']),  teacherLoader::getAllStudentsOfGroup($teacherArray['className'],$pdo), $teacherArray['teacherID']);
 
     }
 
