@@ -72,6 +72,7 @@ if (isset($_GET['page']) && $_GET['page'] === 'groups') {
 }
 
 if (isset($_POST['search_button'])){
+    $controller = new StudentController();
     $controller->searchStudentTeacher($_POST['search']);
 }
 

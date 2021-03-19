@@ -36,7 +36,7 @@ require 'includes/header.php';
                             <?php
                             foreach ($teacher->getAllStudentsOfGroup() as $student): ?>
                             <a href="?page=students&id=<?php echo $student->getId() ?>"
-                               class=""><?php echo $student->getFirstname(),$student->getlastname() ; ?>
+                               class="dropdown-item"><?php echo $student->getFirstname().$student->getlastname() ; ?>
                             <?php endforeach; ?>
                         </div>
                     </div>
