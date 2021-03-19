@@ -10,15 +10,8 @@ class teacherLoader
         $handle->execute();
 
         $teacherArray = $handle->fetch(PDO::FETCH_ASSOC);
-        $group = null;
 
-        var_dump($teacherArray);
-
-        if($teacherArray['className'] !== null) {
-            $group = groupLoader::getGroup($teacherArray['className'], $pdo);
-        }
-
-        return new teacher($teacherArray['lastName'], $teacherArray['firstName'], $teacherArray['email'], $group, $teacherArray['teacherID'], $teacherArray['student']);
+        return new teacher($teacherArray['lastName'], $teacherArray['firstName'], $teacherArray['email'], new group($teacherArray['className']), $teacherArray['teacherID'], $teacherArray['student']);
     }
     /**
      * @param PDO $pdo

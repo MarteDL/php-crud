@@ -6,7 +6,6 @@ ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);
 
-die('hallo');
 
 require "Model/User.php";
 require "Model/DbConnect.php";
