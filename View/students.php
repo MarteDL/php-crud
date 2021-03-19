@@ -12,7 +12,7 @@ require "includes/header.php";
 ?>
 
     <main>
-        <table style="width:100%">
+        <table>
         <tr>
             <th>Firstname</th>
             <th>Lastname</th>

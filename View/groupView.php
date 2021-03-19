@@ -18,7 +18,6 @@
                     <a href="?page=teachers&id=<?php echo $group->getTeacher()->getLastName().' '.$group->getTeacher()->getFirstName() ?>"><?php echo $group->getTeacher()->getLastName().' '.$group->getTeacher()->getFirstName() ?></a>
                 </td>
                 <td>
-                <td>
                     <form method="post"><!-- temporary styling-->
                         <!-- delete button -->
                         <input type="hidden" name="className" value="<?php echo $group->getName() ?>"/>
@@ -27,7 +26,6 @@
                     <!-- edit button -->
                 <td>
                     <a href="?page=groups&edit=<?php echo $group->getName() ?>" class="btn btn-primary">Edit Group</a>
-                </td>
                 </td>
                 </td>
             </tr>
