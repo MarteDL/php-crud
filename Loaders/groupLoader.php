@@ -29,10 +29,21 @@ class groupLoader
 
         $groups = [];
         foreach ($groupsArray as $group) {
-            $teacher = teacherLoader::getTeacher($group['teacherID'], $pdo);
-            $groups[] = new group($group['name'], $group['location'], $teacher);
+            $groups[] = new group($group['name'], $group['location'], $group['teacher']);
         }
         return $groups;
+    }
+
+    public static function getTeacher($group, $pdo): teacher
+    {
+        $handle = $pdo->prepare('SELECT * FROM teacher WHERE className =: className');
+        $handle->bindValue(':className', $group->getName());
+        $handle->execute();
+
+        $teacherArray = $handle->fetch(PDO::FETCH_ASSOC);
+//do not delete this part -> related to teacherView!!!!!!!!!!!!!!!!!!!!!!!!
+        return new teacher($teacherArray['lastName'], $teacherArray['firstName'], $teacherArray['email'], new group($teacherArray['className']),  teacherLoader::getAllStudentsOfGroup($teacherArray['className'],$pdo), $teacherArray['teacherID']);
+
     }
 
     public static function getAllUnasignedGroups(PDO $pdo): array
@@ -46,6 +57,7 @@ class groupLoader
         }
         return $groups;
     }
+
 
     public static function deleteGroup(group $group, PDO $pdo): void
     {
@@ -72,6 +84,9 @@ class groupLoader
         $handle->bindValue(':name', $group->getName());
         $handle->bindValue(':location', $group->getLocation());
         $handle->bindValue(':teacherID', $teacher->getId());
+        $handle->bindValue(':teacherID', $teacher->getId());
         $handle->execute();
+
+        //Marte still working on the part where we also update the classname in the teacherTable
     }
 }

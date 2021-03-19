@@ -5,6 +5,7 @@ use JetBrains\PhpStorm\Pure;
 
 class teacher extends user
 {
+    /** @var student[] $student */
     private group|null $group;
     private array $students;
 
@@ -18,20 +19,17 @@ class teacher extends user
      */
 //    private array $students;
 
-
-    #[Pure] public function __construct(string $lastName, string $firstName, string $email, group|null $group = null, int $id = 0, $students = null)
+    public function __construct(string $lastName, string $firstName, string $email, group|null $group, array|null $students, int $id = 0)
     {
         parent::__construct($lastName, $firstName, $email, $group, $id);
-
-        if ($students !== null) {
-            $this->students = $students;
-        }
-
+        $this->students = $students ?: [];
     }
 
     public function getStudents(): array
     {
         return $this->students;
+
     }
+
 
 }

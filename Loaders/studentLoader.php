@@ -3,7 +3,7 @@
 
 class studentLoader
 {
-    public static function getStudent(int $id, PDO $pdo): student
+    public static function getStudent(int $id, PDO $pdo) : student
     {
         $handle = $pdo->prepare('SELECT s.studentID, s.firstName, s.email, s.className, s.lastName, concat(t.lastName, " ", t.firstName) teacher FROM student s LEFT JOIN teacher t on s.className = t.className WHERE studentId = :id');
         $handle->bindValue(':id', $id);
@@ -16,7 +16,7 @@ class studentLoader
 
     /**
      * @param PDO $pdo
-     * @return teacher[]
+     * @return student[]
      */
     public static function getAllStudents(PDO $pdo): array
     {
@@ -25,14 +25,14 @@ class studentLoader
 
         $students = [];
         foreach ($studentsArray as $student) {
-            $students[] = new teacher($student['lastName'], $student['firstName'], $student['email'], new group($student['className']), $student['studentID']);
+            $students[] = new student($student['lastName'], $student['firstName'], $student['email'], new group($student['className']), $student['studentID']);
         }
         return $students;
     }
 
     /**
      * @param PDO $pdo
-     * @return teacher[]
+     * @return student[]
      */
     public static function getAllStudentsOfGroup(string $className, PDO $pdo): array {
         $handle = $pdo->prepare('SELECT * FROM student where className = :className order by lastname, firstname');
@@ -44,28 +44,27 @@ class studentLoader
         $students = [];
 
         foreach ($studentsArray as $student) {
-            $students[] = new teacher($student['lastName'], $student['firstName'], $student['email'], new group($student['className']), $student['studentID']);
+            $students[] = new student($student['lastName'], $student['firstName'], $student['email'], new group($student['className']), $student['studentID']);
         }
 
         return $students;
     }
 
 //------------------------------------------- studentView update/delete button ------------------------------------------------
-    public static function deleteStudent(teacher $student, PDO $pdo): void
+    public static function deleteStudent(string $id, PDO $pdo): void
     {
         $handle = $pdo->prepare('DELETE FROM student WHERE studentID = :id');
-        $handle->bindValue(':id', $student->getId());
+        $handle->bindValue(':id', $id);
         $handle->execute();
     }
 
 //updated data
-
-    public static function saveStudent(teacher $student, PDO $pdo) : void
+    public static function saveStudent(student $student, PDO $pdo) : void
     {
         if($student->getId() !== null) {
             $handle = $pdo->prepare('UPDATE student SET firstname=:firstname, lastname=:lastname, email=:email, classname=:classname WHERE studentID = :id'); //add teacher parameter
             $handle->bindValue(':id', $student->getId());
-        } else { //insert
+        }else { //insert
             $handle = $pdo->prepare('INSERT INTO student (firstname, lastname, email, classname) VALUES (:firstname, :lastname, :email, :classname)'); //add teacher parameter
         }
 
@@ -81,13 +80,14 @@ class studentLoader
 //not working properly
     public static function searchName($search, PDO $pdo): array
     {
-        $handle = $pdo->prepare("SELECT s.*, t.* FROM student s inner join teacher t on s. className = t.className WHERE s.firstName LIKE '%$search%' OR t.firstName LIKE '%$search%' OR s.lastName LIKE '%$search%' OR t.lastName LIKE '%$search%' ORDER BY t.lastName, s.lastName");
+        $handle = $pdo->prepare("SELECT s.firstName as studentFirstName, s.lastName as studentlastName, t.firstName, t.lastName FROM student s inner join teacher t on s. className = t.className WHERE s.firstName LIKE :string OR t.firstName LIKE :string OR s.lastName LIKE :string OR t.lastName LIKE :string");
+        $handle->bindValue(':string', '%'.$search.'%');
         $handle->execute();
-        $results = $handle->fetchAll(PDO::FETCH_ASSOC);
+        $results = $handle->fetchAll();
         return $results;
 
     }
     //$handle->bindValue(':string', '%'.$search.'%');
 //SELECT s.*, t.* FROM student s inner join teacher t on s. className = t.className WHERE s.firstName LIKE :string OR t.firstName LIKE :string OR s.lastName LIKE :string OR t.lastName LIKE :string ORDER BY s.lastName, t.lastName
-//SELECT * FROM student s inner join teacher t on s. className = t.className WHERE s.firstName LIKE '%s%' OR t.firstName LIKE '%s%' OR s.lastName LIKE '%s%' OR t.lastName LIKE '%s%' ORDER BY s.lastName, t.lastName
+//SELECT s.*, t.* FROM student s inner join teacher t on s. className = t.className WHERE s.firstName LIKE '%$search%' OR t.firstName LIKE '%$search%' OR s.lastName LIKE '%$search%' OR t.lastName LIKE '%$search%' ORDER BY t.lastName, s.lastName
 }
