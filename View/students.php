@@ -39,6 +39,7 @@ require "includes/header.php";
                         <!-- delete button -->
                         <input type="hidden" name="id" value="<?php echo $student->getId() ?>"/>
                         <input type="submit" name="delete" value="Delete" class="btn btn-danger"/>
+                        <button type="submit" name="export_button_student">Download File</button>
                     </form>
                     <!-- edit button -->
                     <a href="index.php?edit=<?php echo $student->getId() ?>" class="btn btn-primary">Edit student</a>

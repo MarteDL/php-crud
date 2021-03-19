@@ -75,5 +75,8 @@ class TeacherController
             require 'View/teacherEdit.php';
         }
     }
+    public function exportingData(){
+        export::exportCSV_teacher($this->pdo);
+    }
 }
 

@@ -85,5 +85,9 @@ class StudentController
             require 'View/studentEdit.php';
         }
     }
+
+    public function exportingData(){
+        export::exportCSV_student($this->pdo);
+    }
 }
 

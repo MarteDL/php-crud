@@ -87,6 +87,19 @@ if (isset($_POST['search_button'])){
 else {
     $controller->render();
 }
+
+if (isset($_POST['export_button_student'])){
+    $controller = new StudentController();
+    $controller->exportingData();
+}
+if (isset($_POST['export_button_teacher'])){
+    $controller = new StudentController();
+    $controller->exportingData();
+}
+if (isset($_POST['export_button_group'])){
+    $controller = new StudentController();
+    $controller->exportingData();
+}
 //------------------- checks from student controller -------------------------
 $controller->checkSavedData();
 $controller->checkDeletedData();

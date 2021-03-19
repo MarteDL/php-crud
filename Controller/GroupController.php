@@ -74,4 +74,7 @@ class GroupController
             require 'View/groupEdit.php';
         }
     }
+    public function exportingData(){
+        export::exportCSV_group($this->pdo);
+    }
 }
