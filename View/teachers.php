@@ -29,6 +29,7 @@
                         <!-- delete button -->
                         <input type="hidden" name="id" value="<?php echo $teacher->getId() ?>"/>
                         <input type="submit" name="delete" value="Delete" class="btn btn-danger"/>
+                        <button type="submit" name="export_button_teacher">Download File</button>
                     </form>
                     <!-- edit button -->
                     <a href="?page=teachers&edit=<?php echo $teacher->getId() ?>" class="btn btn-primary">Edit teacher</a>

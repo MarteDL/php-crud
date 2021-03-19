@@ -86,6 +86,27 @@ if (isset($_POST['search_button'])) {
         $controller->createGroup($_GET);
     }
 }
+//-------Jens code-to be checked--------------
+//else {
+//    $controller->render();
+//}
+
+//if (isset($_POST['export_button_student'])){
+//    $controller = new StudentController();
+//    $controller->exportingData();
+//}
+//if (isset($_POST['export_button_teacher'])){
+//    $controller = new StudentController();
+//    $controller->exportingData();
+//}
+//if (isset($_POST['export_button_group'])){
+//    $controller = new StudentController();
+//    $controller->exportingData();
+//}
+
+
+
+
 
 
 if (empty($_GET)) {
