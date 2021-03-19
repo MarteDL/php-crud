@@ -28,13 +28,24 @@ class StudentController
         require 'View/students.php';
     }
 
-    public function createNewStudent(): void
+    public function goToCreateStudent($GET): void
     {
-        $student = new student($_POST['lastName'], $_POST['firstName'], $_POST['email'], new group($_POST['className']));
-
-        studentLoader::saveStudent($student, $this->pdo);
+        $groups = groupLoader::getAllAssignedGroups($this->pdo);
         require 'View/studentCreate.php';
     }
+
+    public function createNewStudent($GET): void
+    {
+        $group = groupLoader::getGroup($GET['className'], $this->pdo);
+        $student = new student($GET['lastName'], $GET['firstName'], $GET['email'], $group, 0, $group->getTeacher());
+
+        studentLoader::saveStudent($student, $this->pdo);
+
+        header("location: ?page=students");
+        exit;
+
+    }
+
 //should the edit also conclude delete->Student?
     public function editStudent($id): void
     {
@@ -47,7 +58,9 @@ class StudentController
         studentLoader::saveStudent($student, $this->pdo);
         require 'View/studentEdit.php';
     }
-    public function searchStudentTeacher($search): void{
+
+    public function searchStudentTeacher($search): void
+    {
         $results = studentLoader::searchName($search, $this->pdo);
         require 'search.php';
     }
@@ -56,7 +69,7 @@ class StudentController
 //check if data were SAVE
     public function saveData(): void
     {
-            studentLoader::saveStudent(new student($_POST['lastName'],$_POST['firstName'],$_POST['email'],new group($_POST['className']),$_POST['id']) ,$this->pdo);
+        studentLoader::saveStudent(new student($_POST['lastName'], $_POST['firstName'], $_POST['email'], new group($_POST['className']), $_POST['id']), $this->pdo);
     }
 
 //checking if there is an edit parameter ->edit page
@@ -64,13 +77,10 @@ class StudentController
     {
         if (isset($_GET['edit'])) {
             $student = studentLoader::getStudent($_GET['edit'], $this->pdo);
-            $allGroups=groupLoader::getAllGroups($this->pdo);
+            $allGroups = groupLoader::getAllAssignedGroups($this->pdo);
             require 'View/studentEdit.php';
         }
     }
-
-
-  
 
     public function checkRemoveStudent(): void
     {
@@ -79,9 +89,9 @@ class StudentController
             //require 'View/studentView.php';
          }
     }
-  
+
     public function exportingData(){
         export::exportCSV_student($this->pdo);
-    } 
+    }
 }
 

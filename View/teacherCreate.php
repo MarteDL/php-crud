@@ -1,46 +1,43 @@
 <?php
-
-declare(strict_types=1);
-
-ini_set('display_errors', '1');
-ini_set('display_startup_errors', '1');
-error_reporting(E_ALL);
-if (isset($_POST['submit'])) {
-    $newTeacher = new TeacherController();
-    if (!empty($_POST['firstName']&& $_POST['lastName']&& $_POST['email']&& $_POST['className'])) {
-        $newTeacher->createNewTeacher();
-        header("Location:index.php");
-        exit;
-    }else{
-        $error= "You must fill in all the fields ";
-    }
-}else  header("Location:index.php");
+require "includes/header.php"
 ?>
-<form method="post" action="index.php">
-    <table style="width:100%"> <!-- temporary styling-->
-        <tr>
-            <th>Firstname</th>
-            <th>Lastname</th>
-            <th>Email</th>
-            <th>Class name</th>
-            <th>Submit</th>
-        </tr>
-        <tr>
-            <td><input type="text" name="street" id="firstName" class="form-control"
-                       value="<?php echo isset($_POST['firstName']) ? $_SESSION['firstName'] : ''; ?>">
-                <span style="color : red"><?php echo $error ?></span></td>
-            <td><input type="text" name="street" id="firstName" class="form-control"
-                       value="<?php echo isset($_POST['lastName']) ? $_SESSION['lastName'] : ''; ?>">
-                <span style="color : red"><?php echo $error ?></span></td>
-            <td><input type="text" name="street" id="firstName" class="form-control"
-                       value="<?php echo isset($_POST['email']) ? $_SESSION['email'] : ''; ?>">
-                <span style="color : red"><?php echo $error ?></span></td>
-            <td><input type="text" name="street" id="firstName" class="form-control"
-                       value="<?php echo isset($_POST['className']) ? $_SESSION['className'] : ''; ?>">
-                <span style="color : red"><?php echo $error ?></span></td>
-            <!-- creates whole list of class names-->
-            <td> <button type="submit" class="btn btn-primary"  >Submit</button>
-        </tr>
-    </table>
 
-</form>
+<main class="container-fluid">
+    <form method="get" action="?page=teachers">
+        <div class="form-row mt-2">
+            <div class="col">
+                <label for="firstName"></label>
+                <input type="text" name="firstName" id="firstname" class="form-control" placeholder="Firstname">
+
+            </div>
+            <div class="col">
+                <label for="lastName"></label>
+                <input type="text" name="lastName" id="lastname" class="form-control" placeholder="Lastname">
+
+            </div>
+            <div class="col">
+                <label for="email"></label>
+                <input type="text" name="email" id="email" class="form-control" placeholder="Email">
+
+            </div>
+            <div class="col">
+                <label for="classes">Class</label>
+                <select name="className" id="classes">
+                    <?php
+                        /** @var group[] $groups */
+                        /** @var student $student */
+                        foreach ($groups as $group):
+                            $groupName = $group->getName();
+                            ?>
+                    <option value="<?php echo $groupName ?>"><?php echo $groupName ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+            <div class="mt-2">
+                <input type="submit" name="saveTeacher" value="Save" class="btn btn-danger"/>
+            </div>
+        </div>
+    </form>
+</main>
+
+<?php require "includes/footer.php" ?>

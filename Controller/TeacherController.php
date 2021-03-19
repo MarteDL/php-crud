@@ -1,5 +1,7 @@
 <?php
 
+use JetBrains\PhpStorm\NoReturn;
+
 class TeacherController
 {
     private PDO $pdo;
@@ -23,17 +25,27 @@ class TeacherController
 
     public function getAllTeachersInfo(): void
     {
-        $allTeachers = teacherLoader::getAllTeachers($this->pdo);
+        $allTeachers = teacherLoader::getAllAssignedTeachers($this->pdo);
         require 'View/teachers.php';
     }
 
-
-    public function createNewTeacher(): void
+    public function goToCreateTeacher($GET): void
     {
-        $teacher = new teacher($_POST['lastName'],$_POST['firstName'], $_POST['email'], new group($_POST['className']), teacherLoader::getAllStudentsOfGroup($_POST['className'],$this->pdo));
+        $groups = groupLoader::getAllUnasignedGroups($this->pdo);
+        require 'View/teacherCreate.php';
+    }
+
+
+    #[NoReturn] public function createNewTeacher($GET): void
+    {
+        $group = groupLoader::getGroup($GET['className'], $this->pdo);
+        $teacher = new teacher($GET['lastName'],$GET['firstName'], $GET['email'], $group, teacherLoader::getAllStudentsOfGroup($GET['className'],$this->pdo));
 
         teacherLoader::saveTeacher($teacher, $this->pdo);
-        require 'View/teacherCreate.php';
+
+        header("location: ?page=teachers");
+        exit;
+
     }
 //should the edit also conclude delete->Teacher?
     public function editTeacher($id): void
@@ -63,7 +75,7 @@ class TeacherController
     {
         if (isset($_GET['edit'])) {
             $teacher = teacherLoader::getTeacher($_GET['edit'], $this->pdo);
-            $allGroups=groupLoader::getAllGroups($this->pdo);
+            $allGroups=groupLoader::getAllAssignedGroups($this->pdo);
             require 'View/teacherEdit.php';
         }
     }

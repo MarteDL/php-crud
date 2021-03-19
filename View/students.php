@@ -46,6 +46,12 @@ require "includes/header.php";
                 </td>
             </tr>
         <?php endforeach; ?>
+            <tr class="text-center">
+                <!-- edit button -->
+                <td>
+                    <a class="btn btn-primary" href="?page=students&create=create?>">Create new student</a>
+                </td>
+            </tr>
         </table>
 
     </main>

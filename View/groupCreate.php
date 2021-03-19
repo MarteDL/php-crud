@@ -24,7 +24,7 @@ require "includes/header.php"
                     </select>
                 </div>
                 <div class="mt-2">
-                    <input type="submit" name="save" value="Save" class="btn btn-danger"/>
+                    <input type="submit" name="saveGroup" value="Save" class="btn btn-danger"/>
                 </div>
             </div>
         </form>

@@ -4,15 +4,14 @@ require "includes/header.php"
 
 <main>
     <!------------------- edit form ---------------------->
-    <form method="post">
+    <form method="get">
         <label for="name">Name </label>
-            <input type="text" name="name" id="name" value="<?php echo $group->getName() ?>"/>
+            <input type="text" name="name" id="name" value="<?php echo $group->getName() ?>" readonly>
         <label for="location">Location </label>
             <input type="text" name="location" value="<?php echo $group->getLocation() ?>"/>
-        <label for="teacher">Teacher </label>
-            <input type="text" name="teacher" id="teacher" value="<?php echo $group->getTeacher() ?>"/>
         <label for="teacher">Teacher</label>
         <select name="teacherId" id="teacher">
+            <option value="<?php echo $group->getTeacher()->getId() ?>"><?php echo $group->getTeacher()->getLastName().' '.$group->getTeacher()->getFirstName() ?></option>
             <?php foreach ($teachers as $teacher) : ?>
                 <option value="<?php echo $teacher->getId() ?>"><?php echo $teacher->getLastName().' '.$teacher->getFirstName() ?></option>
             <?php endforeach; ?>

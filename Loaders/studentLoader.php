@@ -5,13 +5,14 @@ class studentLoader
 {
     public static function getStudent(int $id, PDO $pdo) : student
     {
-        $handle = $pdo->prepare('SELECT s.studentID, s.firstName, s.email, s.className, s.lastName, concat(t.lastName, " ", t.firstName) teacher FROM student s LEFT JOIN teacher t on s.className = t.className WHERE studentId = :id');
+        $handle = $pdo->prepare('SELECT s.studentID, s.firstName, s.email, s.className, s.lastName, t.teacherID FROM student s LEFT JOIN teacher t on s.className = t.className WHERE studentId = :id');
         $handle->bindValue(':id', $id);
         $handle->execute();
 
         $studentArray = $handle->fetch(PDO::FETCH_ASSOC);
+        $teacher = teacherLoader::getTeacher($studentArray['teacherID'], $pdo);
 
-        return new student($studentArray['lastName'], $studentArray['firstName'], $studentArray['email'], new group($studentArray['className']), $studentArray['studentID'], $studentArray['teacher']);
+        return new student($studentArray['lastName'], $studentArray['firstName'], $studentArray['email'], new group($studentArray['className']), $studentArray['studentID'], $teacher);
     }
 
     /**
@@ -61,7 +62,7 @@ class studentLoader
 //updated data
     public static function saveStudent(student $student, PDO $pdo) : void
     {
-        if($student->getId() !== null) {
+        if($student->getId() !== 0) {
             $handle = $pdo->prepare('UPDATE student SET firstname=:firstname, lastname=:lastname, email=:email, classname=:classname WHERE studentID = :id'); //add teacher parameter
             $handle->bindValue(':id', $student->getId());
         }else { //insert
@@ -75,6 +76,7 @@ class studentLoader
 
         $handle->execute();
     }
+
 
 //----------------------------------------Search function--------------------------------------------------------------
 
