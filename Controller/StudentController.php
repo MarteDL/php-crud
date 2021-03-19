@@ -16,7 +16,7 @@ class StudentController
         require 'View/studentView.php';
     }
 
-    public function getStudentInfo(int $id): teacher
+    public function getStudentInfo(int $id): teacher 
     {
         $student = studentLoader::getStudent($id, $this->pdo);
         require 'View/studentEdit.php';
