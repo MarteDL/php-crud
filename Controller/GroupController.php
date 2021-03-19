@@ -33,10 +33,10 @@ class GroupController
 //should the edit also conclude delete->group?
     public function editGroup($className): void
     {
-        $group = groupLoader::getgroup($_GET['className']);
-        $group->setName($_POST['className']);
-        $group->setLocation($_POST['location']);
-        $group->setTeacher($_POST['teacher']);
+        $group = groupLoader::getgroup($className, $this->pdo);
+//        $group->setName($_POST['name']);
+//        $group->setLocation($_POST['location']);
+//        $group->setTeacher($_POST['teacher']);
 
         groupLoader::savegroup($group, $this->pdo);
         require 'View/groupEdit.php';

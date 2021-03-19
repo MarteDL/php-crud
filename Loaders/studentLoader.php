@@ -64,8 +64,7 @@ class studentLoader
         if($student->getId() !== null) {
             $handle = $pdo->prepare('UPDATE student SET firstname=:firstname, lastname=:lastname, email=:email, classname=:classname WHERE studentID = :id'); //add teacher parameter
             $handle->bindValue(':id', $student->getId());
-        }
-        else { //insert
+        }else { //insert
             $handle = $pdo->prepare('INSERT INTO student (firstname, lastname, email, classname) VALUES (:firstname, :lastname, :email, :classname)'); //add teacher parameter
         }
 

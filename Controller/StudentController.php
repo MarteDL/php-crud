@@ -47,7 +47,10 @@ class StudentController
         studentLoader::saveStudent($student, $this->pdo);
         require 'View/studentEdit.php';
     }
-
+    public function searchStudentTeacher($search): void{
+        $results = studentLoader::searchName($search, $this->pdo);
+        require 'search.php';
+    }
 //-------------  checks for correct work of buttons DO NOT REMOVE NOR CHANGE!!!------------------
 
 //check if data were SAVE
