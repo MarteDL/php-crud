@@ -20,7 +20,7 @@
                         <?php echo $group->getLocation() ?>
                     </td>
                     <td>
-                        <a href="?page=teachers&id=<?php echo $group->getTeacher() ?>"><?php echo $group->getTeacher()?></a>
+                        <a href="?page=teachers&id=<?php echo $group->getTeacher()->getLastName() . ' ' . $group->getTeacher()->getFirstName() ?>"><?php echo $group->getTeacher()->getLastName() . ' ' . $group->getTeacher()->getFirstName() ?></a>
                     </td>
                     <td>
                         <form method="post" style="float: left"><!-- temporary styling-->
@@ -29,10 +29,17 @@
                             <input type="submit" name="delete" value="Delete" class="btn btn-danger"/>
                         </form>
                         <!-- edit button -->
-                        <a href="?page=groups&edit=<?php echo $group->getName() ?>" class="btn btn-primary">Edit group</a>
+                        <a href="?page=groups&edit=<?php echo $group->getName() ?>" class="btn btn-primary">Edit
+                            group</a>
                     </td>
                 </tr>
             <?php endforeach; ?>
+            <tr class="text-center">
+                <!-- edit button -->
+                <td>
+                    <a class="btn btn-primary" href="?page=groups&create=<?php echo $group->getName() ?>">Create new group</a>
+                </td>
+            </tr>
         </table>
 
     </main>

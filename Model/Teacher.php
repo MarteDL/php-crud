@@ -5,15 +5,25 @@ use JetBrains\PhpStorm\Pure;
 
 class teacher extends user
 {
-    /** @var teacher[] */
+    private group|null $group;
     private array $students;
 
+    /**
+     * @param string $lastName
+     * @param string $firstName
+     * @param string $email
+     * @param group|null $group
+     * @param int $id
+     * @param null $students
+     */
+//    private array $students;
 
-    #[Pure] public function __construct(string $lastName, string $firstName, string $email, group $group, int $id = 0, $students = [])
+
+    #[Pure] public function __construct(string $lastName, string $firstName, string $email, group|null $group = null, int $id = 0, $students = null)
     {
         parent::__construct($lastName, $firstName, $email, $group, $id);
 
-        if (!empty($students)) {
+        if ($students !== null) {
             $this->students = $students;
         }
 

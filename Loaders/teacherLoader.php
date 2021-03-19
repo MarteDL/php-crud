@@ -10,8 +10,15 @@ class teacherLoader
         $handle->execute();
 
         $teacherArray = $handle->fetch(PDO::FETCH_ASSOC);
+        $group = null;
 
-        return new teacher($teacherArray['lastName'], $teacherArray['firstName'], $teacherArray['email'], new group($teacherArray['className']), $teacherArray['teacherID'], $teacherArray['student']);
+        var_dump($teacherArray);
+
+        if($teacherArray['className'] !== null) {
+            $group = groupLoader::getGroup($teacherArray['className'], $pdo);
+        }
+
+        return new teacher($teacherArray['lastName'], $teacherArray['firstName'], $teacherArray['email'], $group, $teacherArray['teacherID'], $teacherArray['student']);
     }
     /**
      * @param PDO $pdo
@@ -24,8 +31,21 @@ class teacherLoader
 
         $teachers = [];
         foreach ($teachersArray as $teacher) {
-            $teachers[] = new teacher($teacher['lastName'], $teacher['firstName'], $teacher['email'], new teacher($teacher['className']), $teacher['studentID']);
+            $teachers[] = new teacher($teacher['lastName'], $teacher['firstName'], $teacher['email'], new group($teacher['className']), $teacher['studentID']);
         }
+        return $teachers;
+    }
+
+    public static function getAllUnasignedTeachers(PDO $pdo): array
+    {
+        $handle = $pdo->query('SELECT teacherID, firstName, email, lastName FROM teacher WHERE className IS NULL');
+        $teachersArray = $handle->fetchAll();
+
+        $teachers = [];
+        foreach ($teachersArray as $teacher) {
+            $teachers[] = new teacher($teacher['lastName'], $teacher['firstName'], $teacher['email'], null, $teacher['teacherID']);
+        }
+
         return $teachers;
     }
 

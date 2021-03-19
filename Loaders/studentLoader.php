@@ -11,7 +11,7 @@ class studentLoader
 
         $studentArray = $handle->fetch(PDO::FETCH_ASSOC);
 
-        return new teacher($studentArray['lastName'], $studentArray['firstName'], $studentArray['email'], new group($studentArray['className']), $studentArray['studentID'], $studentArray['teacher']);
+        return new student($studentArray['lastName'], $studentArray['firstName'], $studentArray['email'], new group($studentArray['className']), $studentArray['studentID'], $studentArray['teacher']);
     }
 
     /**

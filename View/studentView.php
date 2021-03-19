@@ -1,15 +1,8 @@
 <?php
-declare(strict_types=1);
-
-ini_set('display_errors', '1');
-ini_set('display_startup_errors', '1');
-error_reporting(E_ALL);
-
 require 'includes/header.php';
-require 'includes/footer.php';
 ?>
 
-<main>
+<main class="container-fluid">
 
 <!--table of detailed overview-->
 <section>
@@ -26,8 +19,8 @@ require 'includes/footer.php';
             <td><?php echo $student->getFirstname() ?></td>
             <td><?php echo $student->getLastname()?></td>
             <td><?php echo $student->getEmail() ?></td>
-            <td><a href="classView.php?className=<?php echo $student->getGroup()->getName() ?>"><?php echo $student->getGroup()->getName() ?></a></td>
-            <td><a href="teacherView.php?teacherID=<?php echo $student->getTeacher() ?>"><?php echo $student->getTeacher() ?></a></td>
+            <td><a href="?page=groups&className=<?php echo $student->getGroup()->getName() ?>"><?php echo $student->getGroup()->getName() ?></a></td>
+            <td><a href="?page=teachers&id=<?php echo $student->getTeacher() ?>"><?php echo $student->getTeacher() ?></a></td>
             <td>
             <td>
                 <form method="post" ><!-- temporary styling-->
@@ -36,7 +29,7 @@ require 'includes/footer.php';
                     <input type="submit" name="delete" value="Delete" class="btn btn-danger"/>
                 </form>
                 <!-- edit button -->
-                <a href="index.php?edit=<?php echo $student->getId() ?>" class="btn btn-primary" >Edit student</a>
+                <a href="?page=students&edit=<?php echo $student->getId() ?>" class="btn btn-primary" >Edit student</a>
             </td>
         </tr>
     </table>

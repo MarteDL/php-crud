@@ -10,7 +10,7 @@ class GroupController
         $this->pdo = $connection->connect();
     }
 
-    public function showGroupInfo($groupName) : void
+    public function showGroupInfo($groupName): void
     {
         $group = groupLoader::getGroup($groupName, $this->pdo);
         require 'View/groupView.php';
@@ -22,32 +22,40 @@ class GroupController
         require 'View/groups.php';
     }
 
-
-    public function createNewGroup(): void
+    public function goToCreateGroup(): void
     {
-        $group = new group($_POST['name'], $_POST['location'], $_POST['teacher']);
-
-        groupLoader::savegroup($group, $this->pdo);
+        $teachers = teacherLoader::getAllUnasignedTeachers($this->pdo);
         require 'View/groupCreate.php';
+    }
+
+    public function createGroup(array $GET): void
+    {
+        var_dump($GET);
+
+        $teacher = teacherLoader::getTeacher($GET['teacherId'], $this->pdo);
+        $group = new group($GET['name'], $GET['location'], $teacher);
+
+        groupLoader::savegroup($group, $teacher, $this->pdo);
+
+        require 'View/groupView.php';
     }
 
 //should the edit also conclude delete->group?
     public function editGroup($POST, $className): void
     {
-        var_dump($POST);
         $group = groupLoader::getgroup($className, $this->pdo);
         $group->setName($POST['name']);
         $group->setLocation($POST['location']);
         $group->setTeacher($POST['teacher']);
 
-        groupLoader::savegroup($group, $this->pdo);
+        groupLoader::editGroup($group, $className, $this->pdo);
         require 'View/groupEdit.php';
     }
 
     public function goToEditGroup($className): void
     {
         $group = groupLoader::getgroup($className, $this->pdo);
-        require  'View/groupEdit.php';
+        require 'View/groupEdit.php';
     }
 
     public function removeGroup(): void

@@ -4,18 +4,18 @@
 class groupLoader
 {
 
-    public static function getGroup(string $className, PDO $pdo) : group
+    public static function getGroup(string $className, PDO $pdo): group
     {
-        $handle = $pdo->prepare('SELECT c.name, c.location, concat(t.lastName, " ", t.firstName) teacher
-FROM class c LEFT JOIN teacher t on c.name = t.className WHERE className = :className');
+        $handle = $pdo->prepare('SELECT c.name, c.location, c.teacherID FROM class c WHERE name = :className');
         $handle->bindValue(':className', $className);
         $handle->execute();
 
         $groupArray = $handle->fetch(PDO::FETCH_ASSOC);
 
-        $groups = studentLoader::getAllStudentsOfGroup($className, $pdo);
+        $students = studentLoader::getAllStudentsOfGroup($className, $pdo);
+        $teacher = teacherLoader::getTeacher($groupArray['teacherID'], $pdo);
 
-        return new group($groupArray['name'], $groupArray['location'], $groupArray['teacher'], $groups);
+        return new group($groupArray['name'], $groupArray['location'], $teacher, $students);
     }
 
     /**
@@ -24,27 +24,27 @@ FROM class c LEFT JOIN teacher t on c.name = t.className WHERE className = :clas
      */
     public static function getAllGroups(PDO $pdo): array
     {
-        $handle = $pdo->query('SELECT c.name, c.location, concat(t.lastName, " ", t.firstName) teacher
-FROM class c LEFT JOIN teacher t on c.name = t.className ORDER BY name');
+        $handle = $pdo->query('SELECT name, location, teacherID FROM class ORDER BY name');
         $groupsArray = $handle->fetchAll();
 
         $groups = [];
         foreach ($groupsArray as $group) {
-            $groups[] = new group($group['name'], $group['location'], $group['teacher']);
+            $teacher = teacherLoader::getTeacher($group['teacherID'], $pdo);
+            $groups[] = new group($group['name'], $group['location'], $teacher);
         }
         return $groups;
     }
 
-    public static function getTeacher($group, $pdo): teacher
+    public static function getAllUnasignedGroups(PDO $pdo): array
     {
-        $handle = $pdo->prepare('SELECT * FROM teacher WHERE className =: className');
-        $handle->bindValue(':className', $group->getName());
-        $handle->execute();
+        $handle = $pdo->query('SELECT name, location FROM class WHERE teacherID IS NULL ');
+        $groupsArray = $handle->fetchAll();
+        $groups = [];
 
-        $teacherArray = $handle->fetch(PDO::FETCH_ASSOC);
-
-        return new teacher($teacherArray['lastName'], $teacherArray['firstName'], $teacherArray['email'], new group($teacherArray['className']), $teacherArray['teacherID']);
-
+        foreach ($groupsArray as $group) {
+            $groups[] = new group($group['name'], $group['location']);
+        }
+        return $groups;
     }
 
     public static function deleteGroup(group $group, PDO $pdo): void
@@ -55,19 +55,23 @@ FROM class c LEFT JOIN teacher t on c.name = t.className ORDER BY name');
     }
 
 //updated data
-    public static function saveGroup(group $group, PDO $pdo) : void
+    public static function editGroup(group $group, $className, PDO $pdo): void
     {
-        if($group->getName() !== null) {
-            $handle = $pdo->prepare('UPDATE class SET name=:name, location=:location, teacherID=:teacherID WHERE name=:classname');
-            $handle->bindValue(':name', $group->getName());
-        }
-        else { //insert
-            $handle = $pdo->prepare('INSERT INTO class (name, location, teacherID) VALUES (:name, :location, :teacherID)');
-        }
 
+        $handle = $pdo->prepare('UPDATE class SET name = :name, location = :location WHERE name = :classname');
         $handle->bindValue(':name', $group->getName());
         $handle->bindValue(':location', $group->getLocation());
-        $handle->bindValue(':teacher', $group->getTeacher());
+        $handle->bindValue(':classname', $className);
+        $handle->execute();
+
+    }
+
+    public static function saveGroup($group, $teacher, PDO $pdo): void
+    {
+        $handle = $pdo->prepare('INSERT INTO class (name, location, teacherID) VALUES (:name, :location, :teacherID)');
+        $handle->bindValue(':name', $group->getName());
+        $handle->bindValue(':location', $group->getLocation());
+        $handle->bindValue(':teacherID', $teacher->getId());
         $handle->execute();
     }
 }
