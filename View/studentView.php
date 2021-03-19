@@ -20,7 +20,7 @@ require 'includes/header.php';
             <td><?php echo $student->getLastname()?></td>
             <td><?php echo $student->getEmail() ?></td>
             <td><a href="?page=groups&className=<?php echo $student->getGroup()->getName() ?>"><?php echo $student->getGroup()->getName() ?></a></td>
-            <td><a href="?page=teachers&id=<?php echo $student->getTeacher() ?>"><?php echo $student->getTeacher() ?></a></td>
+            <td><a href="?page=teachers&id=<?php echo $student->getTeacher()->getId() ?>"><?php echo $student->getTeacher()->getLastName().' '.$student->getTeacher()->getFirstName() ?></a></td>
             <td>
             <td>
                 <form method="post" ><!-- temporary styling-->

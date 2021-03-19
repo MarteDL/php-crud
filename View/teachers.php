@@ -35,6 +35,12 @@
                 </td>
             </tr>
         <?php endforeach; ?>
+        <tr class="text-center">
+            <!-- edit button -->
+            <td>
+                <a class="btn btn-primary" href="?page=teachers&create=create?>">Create new teacher</a>
+            </td>
+        </tr>
     </table>
 
 </main>

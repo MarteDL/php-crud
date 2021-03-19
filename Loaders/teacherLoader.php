@@ -11,15 +11,15 @@ class teacherLoader
 
         $teacherArray = $handle->fetch(PDO::FETCH_ASSOC);
 
-        return new teacher($teacherArray['lastName'], $teacherArray['firstName'], $teacherArray['email'], new group($teacherArray['className']),self::getAllStudentsOfGroup($teacherArray['className'],$pdo), $teacherArray['teacherID']);
+        return new teacher($teacherArray['lastName'], $teacherArray['firstName'], $teacherArray['email'], new group($teacherArray['className']), self::getAllStudentsOfGroup($teacherArray['className'],$pdo), $teacherArray['teacherID']);
     }
     /**
      * @param PDO $pdo
      * @return teacher[]
      */
-    public static function getAllTeachers(PDO $pdo): array
+    public static function getAllAssignedTeachers(PDO $pdo): array
     {
-        $handle = $pdo->query('SELECT * FROM teacher order by lastname, firstname');
+        $handle = $pdo->query('SELECT * FROM teacher WHERE className IS NOT NULL order by lastname, firstname ');
         $teachersArray = $handle->fetchAll();
 
         $teachers = [];
@@ -73,7 +73,7 @@ class teacherLoader
 //updated data
     public static function saveTeacher(teacher $teacher, PDO $pdo) : void
     {
-        if($teacher->getId() !== null) {
+        if($teacher->getId() !== 0) {
             $handle = $pdo->prepare('UPDATE teacher SET firstname=:firstname, lastname=:lastname, email=:email, classname=:classname WHERE teacherID = :id');
             $handle->bindValue(':id', $teacher->getId());
         }

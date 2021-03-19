@@ -31,8 +31,12 @@ class GroupController
     public function createGroup(array $GET): void
     {
         var_dump($GET);
-
-        $teacher = teacherLoader::getTeacher($GET['teacherId'], $this->pdo);
+        if (isset($GET['teacherId'])) {
+            $teacher = teacherLoader::getTeacher($GET['teacherId'], $this->pdo);
+        }
+        else {
+            $teacher = null;
+        }
         $group = new group($GET['name'], $GET['location'], $teacher);
 
         groupLoader::savegroup($group, $teacher, $this->pdo);

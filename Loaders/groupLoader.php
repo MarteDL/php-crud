@@ -12,8 +12,15 @@ class groupLoader
 
         $groupArray = $handle->fetch(PDO::FETCH_ASSOC);
 
-        $students = studentLoader::getAllStudentsOfGroup($className, $pdo);
-        $teacher = teacherLoader::getTeacher($groupArray['teacherID'], $pdo);
+        if ($groupArray['teacherID'] !== null) {
+            $teacher = teacherLoader::getTeacher($groupArray['teacherID'], $pdo);
+            $students = studentLoader::getAllStudentsOfGroup($className, $pdo);
+        }
+
+        else {
+            $teacher = null;
+            $students = [];
+        }
 
         return new group($groupArray['name'], $groupArray['location'], $teacher, $students);
     }
