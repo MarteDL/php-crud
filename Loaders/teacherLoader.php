@@ -29,6 +29,19 @@ class teacherLoader
         return $teachers;
     }
 
+    public static function getAllUnasignedTeachers(PDO $pdo): array
+    {
+        $handle = $pdo->query('SELECT teacherID, firstName, email, lastName FROM teacher WHERE className IS NULL');
+        $teachersArray = $handle->fetchAll();
+
+        $teachers = [];
+        foreach ($teachersArray as $teacher) {
+            $teachers[] = new teacher($teacher['lastName'], $teacher['firstName'], $teacher['email'], null, $teacher['teacherID']);
+        }
+
+        return $teachers;
+    }
+
     /**
      * @param PDO $pdo
      * @return student[]
