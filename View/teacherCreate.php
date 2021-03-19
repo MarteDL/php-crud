@@ -2,8 +2,8 @@
 require "includes/header.php"
 ?>
 
-<main class="container-fluid">
-    <form method="get" action="?page=teachers">
+<main class="container-fluid  p-3">
+    <form class="col-10 m-5 mx-auto" method="get" action="?page=teachers">
         <div class="form-row mt-2">
             <div class="col">
                 <label for="firstName"></label>

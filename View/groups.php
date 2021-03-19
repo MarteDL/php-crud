@@ -1,7 +1,7 @@
 <?php require "includes/header.php"; ?>
 
-    <main>
-        <table style="width:100%">
+    <main class="container-fluid  p-3">
+        <table  class="col-10 m-5 mx-auto" style="width:100%" style="width:100%">
             <tr>
                 <th>Name</th>
                 <th>Location</th>
@@ -38,6 +38,7 @@
                 <!-- edit button -->
                 <td>
                     <a class="btn btn-primary" href="?page=groups&create=<?php echo $group->getName() ?>">Create new group</a>
+                    <button type="submit" name="export_button_teacher">Download File</button>
                 </td>
             </tr>
         </table>

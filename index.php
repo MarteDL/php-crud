@@ -71,6 +71,7 @@ if (isset($_GET['page']) && $_GET['page'] === 'groups') {
 }
 
 if (isset($_POST['search_button'])) {
+    $controller =new StudentController();
     $controller->searchStudentTeacher($_POST['search']);
 } else {
     if (isset($_GET['saveStudent'])) {
@@ -86,28 +87,19 @@ if (isset($_POST['search_button'])) {
         $controller->createGroup($_GET);
     }
 }
-//-------Jens code-to be checked--------------
-//else {
-//    $controller->render();
-//}
 
-//if (isset($_POST['export_button_student'])){
-//    $controller = new StudentController();
-//    $controller->exportingData();
-//}
-//if (isset($_POST['export_button_teacher'])){
-//    $controller = new StudentController();
-//    $controller->exportingData();
-//}
-//if (isset($_POST['export_button_group'])){
-//    $controller = new StudentController();
-//    $controller->exportingData();
-//}
-
-
-
-
-
+if (isset($_POST['export_button_student'])){
+    $controller = new StudentController();
+    $controller->exportingData();
+}
+if (isset($_POST['export_button_teacher'])){
+    $controller = new StudentController();
+    $controller->exportingData();
+}
+if (isset($_POST['export_button_group'])){
+    $controller = new StudentController();
+    $controller->exportingData();
+}
 
 if (empty($_GET)) {
     $controller = new HomepageController();

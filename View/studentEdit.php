@@ -2,10 +2,11 @@
 require "includes/header.php"
 ?>
 
-<main>
+<main class="container-fluid  p-3">
+
     <!------------------- edit form ---------------------->
     <form method="post" action="index.php">
-        <table style="width:100%"> <!-- temporary styling-->
+        <table class="col-10 m-5 mx-auto"> <!-- temporary styling-->
             <tr>
                 <th>Firstname</th>
                 <th>Lastname</th>
