@@ -9,7 +9,7 @@ class studentLoader
         $handle->bindValue(':id', $id);
         $handle->execute();
 
-        $studentArray = $handle->fetch(PDO::FETCH_ASSOC);
+        $studentArray = $handle->fetch();
         $teacher = teacherLoader::getTeacher($studentArray['teacherID'], $pdo);
 
         return new student($studentArray['lastName'], $studentArray['firstName'], $studentArray['email'], new group($studentArray['className']), $studentArray['studentID'], $teacher);
@@ -26,7 +26,8 @@ class studentLoader
 
         $students = [];
         foreach ($studentsArray as $student) {
-            $students[] = new student($student['lastName'], $student['firstName'], $student['email'], new group($student['className']), $student['studentID']);
+            $teacher = teacherLoader::getTeacher($student['teacherID'], $pdo);
+            $students[] = new student($student['lastName'], $student['firstName'], $student['email'], new group($student['className']), $student['studentID'], $teacher);
         }
         return $students;
     }
@@ -62,7 +63,7 @@ class studentLoader
 //updated data
     public static function saveStudent(student $student, PDO $pdo) : void
     {
-        if($student->getId() !== 0) {
+        if($student->getId()) {
             $handle = $pdo->prepare('UPDATE student SET firstname=:firstname, lastname=:lastname, email=:email, classname=:classname WHERE studentID = :id'); //add teacher parameter
             $handle->bindValue(':id', $student->getId());
         }else { //insert
@@ -72,7 +73,7 @@ class studentLoader
         $handle->bindValue(':firstname', $student->getFirstName());
         $handle->bindValue(':lastname', $student->getLastName());
         $handle->bindValue(':email', $student->getEmail());
-        $handle->bindValue(':classname', $student->getGroup()->getName());
+        $handle->bindValue(':classname', $student->getGroup()?->getName());
 
         $handle->execute();
     }
@@ -80,12 +81,16 @@ class studentLoader
 
 //----------------------------------------Search function--------------------------------------------------------------
 
+    /**
+     * @return user[]
+     */
     public static function searchName($search, PDO $pdo): array
     {
         $handle = $pdo->prepare("SELECT studentID, firstName , lastName FROM student WHERE (student.firstName LIKE :string OR student.lastName LIKE :string) UNION SELECT teacherID, firstName , lastName FROM teacher WHERE (teacher.firstName LIKE :string OR teacher.lastName LIKE :string);");
         $handle->bindValue(':string', '%'.$search.'%');
         $handle->execute();
         return $handle->fetchAll();
+
     }
 
 }

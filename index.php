@@ -22,100 +22,90 @@ require "Controller/GroupController.php";
 
 //-------------------- please DO NOT REMOVE OR CHANGE -> essential for button functioning -------------------
 
-
-
-if (isset($_GET['page']) && $_GET['page'] === 'students') {
-    $controller = new StudentController();
-    $controller->checkEditStudent();
-    $controller->checkRemoveStudent();
-
-
-    if (isset($_GET['id'])) {
-        $controller->showStudentInfo((int)$_GET['id']);
-    } else if (isset($_GET['create'])) {
-        $controller->goToCreateStudent($_GET);
-    } // if URL doesnt show any ID nor EDIT -> shows all students
-    else if (!isset($_GET['edit'])) {
-        $controller->getAllStudentInfo();
-    }
-}
-
-if (isset($_GET['page']) && $_GET['page'] === 'teachers') {
-    $controller = new TeacherController();
-    $controller->checkEditTeacher();
-    $controller->checkRemoveTeacher();
-    if (isset($_GET['id'])) {
-        $controller->showTeacherInfo((int)$_GET['id']);
-    } else if (isset($_GET['create'])) {
-        $controller->goToCreateTeacher();
-    } else {
-        $controller->getAllTeachersInfo();
-    }
-}
-
-if (isset($_GET['page']) && $_GET['page'] === 'groups') {
-    $controller = new GroupController();
-    $controller->checkRemoveGroup();
-
-    if (isset($_GET['className'])) {
-        $controller->showGroupInfo((string)$_GET['className']);
-    } // if URL shows EDIT -> shows EDIT page with a specific student -> checkEditStudent()
-    else if (isset($_GET['edit'])) {
-            $controller->goToEditGroup($_GET['edit']);
-    } else if (isset($_GET['create'])) {
-        $controller->goToCreateGroup();
-    } // if URL doesnt show any ID nor EDIT -> shows all students
-    else {
-        $controller->getAllGroupsInfo();
-    }
-}
-
-if (isset($_POST['search_button'])) {
-    $controller = new StudentController();
-    $controller->searchStudentTeacher($_POST['search']);
-    $controller = new Studentcontroller();
-} else {
-    if (isset($_POST['saveStudent'])) {
+if(isset($_GET['page'])) {
+    if ($_GET['page'] === 'students') {
         $controller = new StudentController();
-        $controller->saveData();
+        $controller->checkEditStudent();
+        $controller->checkRemoveStudent();
+
+
+        if (isset($_GET['id'])) {
+            $controller->showStudentInfo((int)$_GET['id']);
+        } else if (isset($_GET['create'])) {
+            $controller->goToCreateStudent($_GET);
+        } // if URL doesnt show any ID nor EDIT -> shows all students
+        else if (!isset($_GET['edit'])) {
+            $controller->getAllStudentInfo();
+        }
+        else if (isset($_POST['saveStudent'])) {
+            $controller = new StudentController();
+            $controller->editStudent();
+        }
+
+
     }
-    if (isset($_POST['saveTeacher'])) {
+
+    else if ($_GET['page'] === 'teachers') {
         $controller = new TeacherController();
-        $controller->saveData();
+        $controller->checkEditTeacher();
+        $controller->checkRemoveTeacher();
+        if (isset($_GET['id'])) {
+            $controller->showTeacherInfo((int)$_GET['id']);
+        } else if (isset($_GET['create'])) {
+            $controller->goToCreateTeacher();
+        } else {
+            $controller->getAllTeachersInfo();
+        }
     }
-    if (isset($_POST['saveGroup'])) {
+
+    else if ($_GET['page'] === 'groups') {
         $controller = new GroupController();
-        $controller->checkSavedData();
+        $controller->checkRemoveGroup();
+
+        if (isset($_GET['className'])) {
+            $controller->showGroupInfo((string)$_GET['className']);
+        } // if URL shows EDIT -> shows EDIT page with a specific student -> checkEditStudent()
+        else if (isset($_GET['edit'])) {
+            $controller->goToEditGroup($_GET['edit']);
+        } else if (isset($_GET['create'])) {
+            $controller->goToCreateGroup();
+        } // if URL doesnt show any ID nor EDIT -> shows all students
+        else {
+            $controller->getAllGroupsInfo();
+        }
+    }
+    else if($_GET['page'] === 'export') {
+        if (isset($_POST['export_button_student'])){
+            $controller = new StudentController();
+        }
+        else if (isset($_POST['export_button_teacher'])){
+            $controller = new TeacherController();
+        }
+        else if (isset($_POST['export_button_group'])){
+            $controller = new GroupController();
+        }
+        $controller->exportingData();
+    }
+    else if (isset($_POST['search_button'])) {
+        $controller = new StudentController();
+        $controller->searchStudentTeacher($_POST['search']);
+    } else {
+
+    }
+    if (isset($_GET['saveStudent'])) {
+        $controller = new StudentController();
+        $controller->createNewStudent($_GET);//should be a post
+    }
+    if (isset($_GET['saveTeacher'])) {
+        $controller = new TeacherController();
+        $controller->createNewTeacher($_GET);
+    }
+    if (isset($_GET['saveGroup'])) {
+        $controller = new GroupController();
+        $controller->createGroup($_GET);
     }
 }
-if (isset($_GET['saveStudent'])) {
-    $controller = new StudentController();
-    $controller->createNewStudent($_GET);
-}
-if (isset($_GET['saveTeacher'])) {
-    $controller = new TeacherController();
-    $controller->createNewTeacher($_GET);
-}
-if (isset($_GET['saveGroup'])) {
-    $controller = new GroupController();
-    $controller->createGroup($_GET);
-}
-
-
-if (isset($_POST['export_button_student'])){
-    $controller = new StudentController();
-    $controller->exportingData();
-}
-if (isset($_POST['export_button_teacher'])){
-    $controller = new StudentController();
-    $controller->exportingData();
-}
-if (isset($_POST['export_button_group'])){
-    $controller = new StudentController();
-    $controller->exportingData();
-}
-
-if (empty($_GET)) {
+else {
     $controller = new HomepageController();
     $controller->render();
 }

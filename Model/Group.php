@@ -38,7 +38,7 @@ class group
     }
 
     /**
-     * @return array
+     * @return student[]
      */
     public function getStudents(): array
     {

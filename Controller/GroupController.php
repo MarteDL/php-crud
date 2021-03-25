@@ -30,7 +30,6 @@ class GroupController
 
     public function createGroup(array $GET): void
     {
-        var_dump($GET);
         if (isset($GET['teacherId'])) {
             $teacher = teacherLoader::getTeacher($GET['teacherId'], $this->pdo);
         } else {

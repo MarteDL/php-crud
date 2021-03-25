@@ -2,33 +2,28 @@
 
 class export
 {
-
-    public static function exportCSV_student($pdo)
-    {
-
+    private function exportCsv(array $array) : void {
         header('Content-Type: text/csv; charset=utf-8');
         header('Content-Disposition: attachment; filename=data.csv');
         $output = fopen("php://output", "wb");
-        $studentArray = studentLoader::getAllStudents($pdo);
 
-        fputcsv($output, $studentArray('studentID', 'firstName', 'lastName', 'email', 'className'));
+        fputcsv($output, $array);
 
         fclose($output);
+    }
+
+    public static function exportCSV_student($pdo)
+    {
+        $studentArray = studentLoader::getAllStudents($pdo);
+        self::exportCsv($studentArray('studentID', 'firstName', 'lastName', 'email', 'className'));
 
     }
     public static function exportCSV_teacher($pdo)
     {
-
-        header('Content-Type: text/csv; charset=utf-8');
-        header('Content-Disposition: attachment; filename=data.csv');
-        $output = fopen("php://output", "wb");
         $teacherArray = teacherLoader::getAllTeachers($pdo);
-
-        fputcsv($output, $teacherArray('teacherID', 'firstName', 'lastName', 'email', 'className'));
-
-        fclose($output);
-
+        self::exportCsv([$teacherArray['teacherID'], $teacherArray['firstName'], $teacherArray['lastName'], $teacherArray['email'], $teacherArray['export']]);
     }
+
     public static function exportCSV_group($pdo)
     {
 

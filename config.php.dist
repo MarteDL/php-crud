@@ -1,0 +1,3 @@
+<?php
+const PASSWORD = '___';
+const USER = '___';

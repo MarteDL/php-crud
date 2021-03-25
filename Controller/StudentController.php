@@ -16,12 +16,6 @@ class StudentController
         require 'View/studentView.php';
     }
 
-    public function getStudentInfo(int $id): student
-    {
-        $student = studentLoader::getStudent($id, $this->pdo);
-        require 'View/studentEdit.php';
-    }
-
     public function getAllStudentInfo(): void
     {
         $allStudents = studentLoader::getAllStudents($this->pdo);
@@ -46,36 +40,30 @@ class StudentController
 
     }
 
-//should the edit also conclude delete->Student?
-    public function editStudent($id): void
-    {
-        $student = studentLoader::getStudent($_GET['id']);
-        $student->setEmail($_POST['email']);
-        $student->setFirstName($_POST['firstName']);
-        $student->setLastName($_POST['lastName']);
-        $student->setGroup(new group($_POST['className']));
 
-        studentLoader::saveStudent($student, $this->pdo);
-        require 'View/studentEdit.php';
+//check if data were SAVE
+    private function editStudent(): void
+    {
+        studentLoader::saveStudent(new student($_POST['lastName'], $_POST['firstName'], $_POST['email'], new group($_POST['className']), $_POST['id']), $this->pdo);
     }
 
     public function searchStudentTeacher($search): void
     {
         $results = studentLoader::searchName($search, $this->pdo);
+
         require 'search.php';
     }
 //-------------  checks for correct work of buttons DO NOT REMOVE NOR CHANGE!!!------------------
 
-//check if data were SAVE
-    public function saveData(): void
-    {
-        studentLoader::saveStudent(new student($_POST['lastName'], $_POST['firstName'], $_POST['email'], new group($_POST['className']), $_POST['id']), $this->pdo);
-    }
 
 //checking if there is an edit parameter ->edit page
     public function checkEditStudent(): void
     {
         if (isset($_GET['edit'])) {
+            if(!emmpty($_POST['lastName'])) {
+                $this->editStudent();
+            }
+
             $student = studentLoader::getStudent($_GET['edit'], $this->pdo);
             $allGroups = groupLoader::getAllAssignedGroups($this->pdo);
             require 'View/studentEdit.php';

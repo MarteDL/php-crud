@@ -32,11 +32,9 @@ class TeacherController
 
     #[NoReturn] public function createNewTeacher($GET): void
     {
+        $group = null;
         if (!empty($GET['className'])) {
             $group = groupLoader::getGroup($GET['className'], $this->pdo);
-        }
-        else {
-            $group = null;
         }
 
         $teacher = new teacher($GET['lastName'],$GET['firstName'], $GET['email'], $group, teacherLoader::getAllStudentsOfGroup($GET['className'],$this->pdo));
@@ -78,8 +76,8 @@ class TeacherController
             teacherLoader::deleteTeacher($_POST['id'], $this->pdo);
             //require 'View/studentView.php';
         }
-
     }
+
   public function exportingData(){
         export::exportCSV_teacher($this->pdo);
   }
